@@ -1,0 +1,713 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#111"><title>Fruit Slash V2</title><style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#120b06;font-family:Arial,sans-serif;touch-action:none}button,input{font:inherit}#game{position:fixed;inset:0;width:100%;height:100%}.screen{position:fixed;inset:0;z-index:10;display:flex;align-items:center;justify-content:center;padding:22px;background:linear-gradient(#140b05aa,#050302ee)}.card{width:min(92vw,460px);max-height:90vh;overflow:auto;padding:26px 20px;border:2px solid #ffffff25;border-radius:28px;background:linear-gradient(145deg,#2b180cF2,#130b06F2);color:#fff;text-align:center;box-shadow:0 20px 70px #000b}.title{font-size:48px;font-weight:1000;color:#ffd44d;text-shadow:0 5px #7d2800;margin:0 0 8px}.sub{color:#e9d8c5;line-height:1.45}.btn{border:0;border-radius:17px;padding:14px 20px;margin:7px;width:calc(100% - 14px);font-weight:1000;font-size:20px;background:#ffd44d;color:#281306;box-shadow:0 5px #a45d08}.btn.secondary{background:#eee0cf;box-shadow:0 5px #76604b}.btn:active{transform:translateY(3px);box-shadow:0 2px #7a4307}.row{display:flex;gap:8px}.row .btn{width:50%}.nameInput{width:100%;padding:14px;border-radius:15px;border:2px solid #ffffff25;background:#0c0805;color:white;text-align:center;font-weight:800;font-size:20px}.hidden{display:none!important}#hud{position:fixed;z-index:5;top:10px;left:0;right:0;padding:8px 13px;display:flex;justify-content:space-between;pointer-events:none;color:#fff;text-shadow:0 3px 4px #000}#score{font-size:42px;font-weight:1000;color:#ffd84d}#coinsRun{font-weight:900;color:#ffe18a}#timer{font-size:34px;font-weight:1000}#modeLabel{font-size:13px;font-weight:900;color:#fff8}#combo{position:fixed;z-index:6;top:94px;left:50%;transform:translateX(-50%) scale(.8);opacity:0;font-size:34px;font-weight:1000;color:#fff45c;text-shadow:0 4px #7a2b00;transition:.16s;pointer-events:none}.panel{background:#ffffff0d;border:1px solid #ffffff18;border-radius:17px;padding:12px;margin:10px 0;text-align:left}.shopItem{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px;border-bottom:1px solid #ffffff12}.shopItem:last-child{border:0}.price{font-weight:1000;color:#ffd44d}.tag{font-size:12px;color:#bda990}.leader{display:flex;justify-content:space-between;padding:9px 4px;border-bottom:1px solid #ffffff12}.admin{color:#ffd44d;font-weight:1000;font-size:12px}.tiny{font-size:12px;color:#bda990}.rank{color:#7fe8ff;font-weight:1000}
+
+/* HOME PREMIUM */
+.themeBtn{border:1px solid #ffffff16;border-radius:15px;padding:10px 4px;background:#ffffff08;color:#f6eadc;display:flex;flex-direction:column;align-items:center;gap:4px}.themeBtn:active{transform:translateY(2px)}.themeBtn span{font-size:21px}.themeBtn b{font-size:9px;letter-spacing:.4px}.themeGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}.themeCard{border:1px solid #ffffff18;border-radius:18px;padding:14px;background:#ffffff08;color:#fff;text-align:left;min-height:92px;position:relative;overflow:hidden}.themeCard:active{transform:scale(.98)}.themeCard.active{border-color:#ffd44d;box-shadow:0 0 0 2px #ffd44d22,inset 0 0 25px #ffd44d0d}.themePreview{height:42px;border-radius:12px;margin-bottom:8px;border:1px solid #ffffff18}.themePreview.dark{background:linear-gradient(135deg,#17100d,#050302)}.themePreview.light{background:linear-gradient(135deg,#fff8e8,#dce7f2)}.themePreview.japan{background:linear-gradient(135deg,#201018,#8e2038 55%,#f1d9b5)}.themePreview.neon{background:linear-gradient(135deg,#09091c,#18235c,#30134e)}.themePreview.sunset{background:linear-gradient(135deg,#3d160b,#bd4d24,#f0b54a)}.themeCard b{font-size:14px}.themeCard small{display:block;color:#bda990;font-size:10px;margin-top:3px}.themeCard .check{position:absolute;right:9px;top:9px;display:none}.themeCard.active .check{display:block}.themeNote{font-size:11px;color:#bda990;text-align:center;margin:8px 0}.themeLight{background:#eef3f7!important;color:#17212b!important}.themeLight .card,.themeLight .homeCard{background:linear-gradient(145deg,#ffffffF5,#edf2f7F5);color:#17212b;border-color:#17212b20}.themeLight .sub,.themeLight .tiny,.themeLight .homeTip,.themeLight .sectionLabel,.themeLight .welcome,.themeLight .modeBtn small,.themeLight .themeCard small{color:#526273}.themeLight .modeBtn{background:linear-gradient(145deg,#fff,#e4ebf2);color:#17212b;border-color:#17212b18}.themeLight .quickBtn,.themeLight .themeCard{background:#17212b0a;color:#17212b;border-color:#17212b18}.themeJapan .homeCard,.themeJapan .card{background:linear-gradient(145deg,#32101bF5,#170a10F5)}.themeJapan .homeTitle span,.themeJapan .title{color:#f1d9b5;text-shadow:0 3px #7b1f36}.themeJapan .btn{background:#e6c79e;color:#281014;box-shadow:0 5px #8e2038}.themeJapan .hero{background:radial-gradient(circle at 50% 55%,#f1d9b522,transparent 42%),linear-gradient(135deg,#200d16,#711b31)}.themeJapan .brandMark{background:linear-gradient(145deg,#f1d9b5,#c94a68);box-shadow:0 5px #711b31}.themeNeon .homeCard,.themeNeon .card{background:linear-gradient(145deg,#10142cf5,#090914f5)}.themeNeon .homeTitle span,.themeNeon .title{color:#7ffcff;text-shadow:0 0 14px #5df}.themeNeon .btn{background:#7ffcff;color:#07101b;box-shadow:0 5px #287b8a}.themeNeon .hero{background:radial-gradient(circle at 50% 55%,#7ffcff22,transparent 42%),linear-gradient(135deg,#09091c,#1a2763)}.themeNeon .brandMark{background:linear-gradient(145deg,#7ffcff,#9c6cff);box-shadow:0 5px #30308a}.themeSunset .homeCard,.themeSunset .card{background:linear-gradient(145deg,#42170cf5,#1a0b07f5)}.themeSunset .homeTitle span,.themeSunset .title{color:#ffc857;text-shadow:0 3px #8e3518}.themeSunset .btn{background:#ffc857;color:#301308;box-shadow:0 5px #9b4d17}.themeSunset .hero{background:radial-gradient(circle at 50% 55%,#ffc85725,transparent 42%),linear-gradient(135deg,#2c0f08,#a9431d)}
+.homeScreen{align-items:stretch;padding:12px 12px 18px;background:radial-gradient(circle at 50% 18%,#5b2b0b55 0,#140a05dd 45%,#050302f5 100%);overflow:auto}.homeCard{width:min(94vw,500px);margin:auto;padding:16px 15px 14px;border:1px solid #ffffff24;border-radius:30px;background:linear-gradient(160deg,#321a0bfa,#170c07fa 62%,#0e0805fa);box-shadow:0 25px 90px #000d, inset 0 1px #ffffff18;position:relative;overflow:hidden}.homeCard:before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,#ffd44d09,transparent 35%,#ff6b0010 70%,transparent)}.homeTop{display:flex;align-items:center;gap:10px;position:relative;z-index:1}.brandMark{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;font-size:28px;background:linear-gradient(145deg,#ffd95c,#f08a16);box-shadow:0 5px 0 #8b4509,0 10px 30px #ff9c1825}.brandSmall{font-size:9px;letter-spacing:2px;color:#cdb69d;font-weight:900}.homeTitle{font-size:30px;line-height:.95;margin:2px 0 0;font-weight:1000;letter-spacing:-1px;color:#fff}.homeTitle span{color:#ffd44d;text-shadow:0 3px #7d2800}.coinPill{margin-left:auto;padding:9px 12px;border-radius:16px;background:#0d0805cc;border:1px solid #ffd44d35;color:#ffe18a;box-shadow:inset 0 1px #fff1;font-size:16px}.welcome{display:flex;align-items:center;gap:8px;margin:12px 2px 10px;color:#eadac9;font-size:14px}.welcome .admin{background:#ffd44d15;border:1px solid #ffd44d30;border-radius:9px;padding:4px 7px}.hero{height:155px;border-radius:24px;position:relative;overflow:hidden;margin-bottom:14px;background:radial-gradient(circle at 50% 55%,#ffb52d22,transparent 42%),linear-gradient(135deg,#1a0c06,#3b1b08);border:1px solid #ffffff18;box-shadow:inset 0 0 40px #0008}.hero:after{content:"";position:absolute;inset:-50%;background:repeating-linear-gradient(8deg,transparent 0 34px,#ffffff06 35px 37px);transform:rotate(-8deg)}.heroGlow{position:absolute;width:170px;height:170px;border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%);background:#ffd44d18;filter:blur(3px)}.blade{position:absolute;left:50%;top:50%;transform:translate(-50%,-58%) rotate(-18deg);font-size:82px;color:#fff;text-shadow:0 0 8px #fff,0 0 28px #7de8ff,0 0 55px #36bde8;z-index:2;filter:drop-shadow(0 12px 7px #0008)}.heroText{position:absolute;left:50%;bottom:13px;transform:translateX(-50%);z-index:3;text-align:center;white-space:nowrap;text-shadow:0 3px 6px #000}.heroText b{font-size:17px;color:#ffd44d;letter-spacing:3px}.heroText span{font-size:9px;letter-spacing:2px;color:#f5e7d7;font-weight:900}.fruitOrbit{position:absolute;z-index:3;font-size:36px;filter:drop-shadow(0 8px 5px #0008)}.f1{left:9%;top:24px;transform:rotate(-14deg)}.f2{right:9%;top:25px;transform:rotate(16deg)}.f3{left:18%;bottom:19px;font-size:31px;transform:rotate(8deg)}.f4{right:18%;bottom:21px;font-size:29px;transform:rotate(-9deg)}.sectionLabel{font-size:10px;letter-spacing:2px;color:#a9947d;font-weight:1000;margin:5px 3px 7px}.modeBtn{width:100%;display:flex;align-items:center;gap:12px;border:1px solid #ffffff12;border-radius:17px;padding:12px;margin:0 0 8px;background:linear-gradient(145deg,#2a170c,#1b0f09);color:#fff;text-align:left;box-shadow:0 4px 0 #0b0604;transition:transform .12s,border-color .12s}.modeBtn:active{transform:translateY(3px);box-shadow:0 1px #0b0604}.modeBtn.primaryMode{background:linear-gradient(145deg,#ffd95c,#f39a1c);color:#2a1405;border-color:#ffe58a;box-shadow:0 5px 0 #9b5008}.modeBtn.primaryMode small{color:#5d350f}.modeIcon{width:43px;height:43px;border-radius:13px;display:grid;place-items:center;background:#ffffff12;font-size:23px;flex:none}.primaryMode .modeIcon{background:#ffffff2b}.modeBtn span:nth-child(2){display:flex;flex-direction:column;gap:3px;min-width:0}.modeBtn b{font-size:16px;letter-spacing:.5px}.modeBtn small{font-size:10px;color:#bba995}.modeBtn strong{margin-left:auto;font-size:28px;color:#ffd44d}.primaryMode strong{color:#4a2608}.modeGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.modeGrid .modeBtn{margin:0}.modeGrid .modeBtn .modeIcon{width:38px;height:38px;font-size:20px}.quickRow{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:12px}.quickBtn{border:1px solid #ffffff12;border-radius:15px;padding:10px 4px;background:#ffffff08;color:#f6eadc;display:flex;flex-direction:column;align-items:center;gap:4px}.quickBtn:active{transform:translateY(2px)}.quickBtn span{font-size:21px}.quickBtn b{font-size:9px;letter-spacing:.4px}.homeTip{margin-top:10px;text-align:center;color:#a99582;font-size:9px}.homeTip b{color:#d9c1a7}
+
+.promoGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}.promo{position:relative;min-height:105px;padding:12px;border-radius:18px;overflow:hidden;text-align:left;border:1px solid #ffffff18;background:linear-gradient(145deg,#3b1609,#180b06);box-shadow:0 7px 20px #0007}.promo.fire{background:linear-gradient(145deg,#6b2508,#211006)}.promo.ice{background:linear-gradient(145deg,#123e50,#0b1118)}.promo .emoji{font-size:30px;filter:drop-shadow(0 5px 5px #0008)}.promo b{display:block;font-size:14px;margin-top:4px}.promo small{font-size:9px;color:#ead9c8}.promo .new{position:absolute;right:7px;top:7px;font-size:8px;font-weight:1000;background:#ffd44d;color:#2b1605;border-radius:8px;padding:3px 5px}.helpBtn{width:100%;border:1px solid #7fe8ff35;background:#102631;color:#dff9ff;border-radius:15px;padding:10px;font-weight:1000;margin-top:9px}.modeInfo{padding:11px;border-radius:15px;background:#ffffff09;border:1px solid #ffffff14;margin:8px 0;text-align:left}.modeInfo b{color:#ffd44d}.helpList{display:grid;gap:8px;margin-top:10px}.helpItem{padding:11px;border-radius:15px;background:#ffffff09;border:1px solid #ffffff12;text-align:left}.helpItem b{color:#ffd44d}.dailyPromo{grid-column:1/-1;min-height:118px;padding:13px;border-radius:20px;position:relative;overflow:hidden;text-align:left;border:1px solid #ffd44d55;background:linear-gradient(135deg,#5a2508,#241006 60%,#3a1608);box-shadow:0 10px 28px #0008,inset 0 1px #fff2}.dailyPromo:after{content:"";position:absolute;inset:-80%;background:linear-gradient(110deg,transparent 45%,#fff3 50%,transparent 55%);transform:rotate(8deg);animation:flashSweep 3.2s linear infinite}.dailyPromo>*{position:relative;z-index:1}.flashBadge{position:absolute;right:9px;top:9px;background:#ffd44d;color:#2b1605;border-radius:9px;padding:4px 7px;font-size:8px;font-weight:1000;letter-spacing:1px}.dailyPromo .dailyIcon{font-size:32px;filter:drop-shadow(0 5px 6px #0008)}.dailyPromo b{display:block;font-size:16px;margin-top:2px}.dailyPromo small{display:block;color:#f4dfc9;font-size:10px;margin-top:3px}.dailyPrice{margin-top:7px;font-size:13px;font-weight:1000}.oldPrice{text-decoration:line-through;color:#b99d86;margin-right:6px}.newPrice{color:#ffe26a}@keyframes flashSweep{0%{transform:translateX(-20%) rotate(8deg);opacity:0}20%{opacity:1}45%{opacity:0}100%{transform:translateX(20%) rotate(8deg);opacity:0}}.adTag{font-size:8px;letter-spacing:1.5px;color:#bba18a;font-weight:1000}.
+.lockerItem{display:flex;align-items:center;gap:10px;padding:12px;border:1px solid #ffffff14;border-radius:16px;background:#ffffff08;margin:8px 0;text-align:left}.lockerPreview{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-size:27px;background:#120b08;border:1px solid #ffffff18;flex:none}.lockerItem.active{border-color:#ffd44d;box-shadow:0 0 0 2px #ffd44d22}.lockerItem b{display:block}.lockerItem small{display:block;color:#bda990;font-size:10px;margin-top:3px}.equipBtn{margin-left:auto;border:0;border-radius:11px;padding:8px 10px;background:#ffd44d;color:#2a1605;font-weight:1000}.equippedTag{color:#a8ffd8;font-size:10px;font-weight:1000;margin-left:auto}.promoCodeBox{margin-top:12px;padding:13px;border:1px solid #7fe8ff35;border-radius:18px;background:linear-gradient(145deg,#102b36,#0b1419);text-align:left}.promoCodeTitle{display:flex;justify-content:space-between;align-items:center;gap:8px}.promoCodeTitle b{color:#dff9ff}.promoCodeGrid{display:grid;grid-template-columns:1fr auto;gap:7px;margin-top:8px}.promoInput{width:100%;padding:11px 12px;border-radius:12px;border:1px solid #ffffff22;background:#080b0d;color:#fff;font-weight:900;outline:none}.promoMiniBtn{border:0;border-radius:12px;padding:10px 12px;background:#7fe8ff;color:#09202a;font-weight:1000}.promoStatus{font-size:11px;margin-top:7px;color:#b8dbe5;min-height:14px}.adminCreate{margin-top:10px;padding-top:10px;border-top:1px solid #ffffff12}.adminCreate label{display:block;font-size:9px;color:#a99582;letter-spacing:1px;font-weight:1000;margin:5px 0}.codeList{margin-top:7px;display:grid;gap:5px}.codeRow{display:flex;justify-content:space-between;gap:8px;padding:7px 8px;border-radius:10px;background:#ffffff08;font-size:10px}.codeRow b{color:#ffd44d}.dangerMini{border:0;background:#4a1a13;color:#ffc7bb;border-radius:8px;padding:5px 7px;font-size:10px;font-weight:900}
+
+.newsGrid{display:grid;gap:10px;margin:14px 0}.newsItem{padding:14px;border:1px solid #ffffff16;border-radius:18px;background:linear-gradient(145deg,#ffffff0b,#ffffff05);text-align:left;position:relative;overflow:hidden}.newsItem.hot{border-color:#ffd44d45;background:linear-gradient(145deg,#ffd44d12,#ffffff05)}.newsIcon{font-size:28px;float:left;margin-right:10px}.newsItem b{font-size:14px}.newsItem small{display:block;color:#bda990;font-size:11px;line-height:1.4;margin-top:4px}.newsBadge{display:inline-block;font-size:9px;font-weight:1000;letter-spacing:1px;padding:4px 7px;border-radius:8px;background:#ffd44d18;color:#ffd44d;margin-bottom:6px}.countdown{font-size:10px;color:#7fe8ff;font-weight:900;margin-top:5px}.themeLight .newsItem{background:#17212b08;border-color:#17212b18}.themeLight .newsItem small{color:#526273}.newsMini{margin-top:8px;padding:9px 11px;border-radius:13px;background:#ffffff08;border:1px solid #ffffff12;font-size:10px;color:#cdb69d;text-align:center}.newsMini b{color:#ffd44d}.themeLight .newsMini{color:#526273;background:#17212b08;border-color:#17212b18}.</style><style id="final-ui-upgrade-css">
+/* Pub / événements / recherche / rangs */
+.promoShelfFS{margin:10px 0;padding:12px;border:1px solid #ffd44d33;border-radius:18px;background:linear-gradient(145deg,#24170b,#100b08)}
+.promoShelfFS h3{margin:0 0 8px;font-size:16px}.promoDealsFS{display:grid;gap:8px}.dealFS{padding:10px;border-radius:13px;background:#ffffff09;border:1px solid #ffffff12;text-align:left}.dealFS b{display:block;font-size:13px}.dealFS small{display:block;color:#cbbba8;margin-top:3px;font-size:10px}
+.rankListFS{display:grid;gap:9px;margin:12px 0}.rankCardFS{padding:12px;border:1px solid #ffffff14;border-radius:16px;background:#ffffff08;text-align:left}.rankCardFS.current{border-color:#ffd44d66;box-shadow:0 0 0 2px #ffd44d14}.rankCardFS b{font-size:15px}.rankCardFS small{display:block;color:#bda990;margin-top:3px}.rankBarFS{height:8px;background:#0006;border-radius:99px;overflow:hidden;margin-top:8px}.rankBarFS i{display:block;height:100%;background:linear-gradient(90deg,#ffd44d,#ff8c42);border-radius:99px}
+/* Combo V5 */
+#comboFX .comboRing{border-radius:50%;border:5px solid #ffd44d;box-shadow:0 0 18px #ffd44d,0 0 42px #ff7a00;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(.2);animation:comboRingV5 .55s ease-out forwards}
+#comboFX .comboLabel{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(.45) rotate(-7deg);font-weight:1000;white-space:nowrap;color:#fff;text-shadow:0 4px 0 #7a2600,0 0 18px #ffd44d;animation:comboTextV5 .58s cubic-bezier(.2,1.4,.4,1) forwards}
+#comboFX.combo2 .comboLabel{font-size:34px}.combo2 .comboRing{border-width:4px}
+#comboFX.combo3 .comboLabel{font-size:43px;color:#fff9a8;text-shadow:0 5px 0 #8d2800,0 0 25px #ffcf3f}.combo3 .comboRing{border-width:6px;box-shadow:0 0 25px #fff,0 0 55px #ffb300}
+#comboFX.combo4 .comboLabel{font-size:50px;color:#fff;text-shadow:0 5px 0 #8d2800,0 0 30px #ff6a00}.combo4 .comboRing{border-width:8px;box-shadow:0 0 35px #fff,0 0 80px #ff6a00}
+#comboFX.combo5 .comboLabel{font-size:58px;color:#fff}.combo5 .comboRing{border-width:10px;box-shadow:0 0 45px #fff,0 0 110px #ff3b00}
+@keyframes comboRingV5{0%{opacity:0;transform:translate(-50%,-50%) scale(.2)}35%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(2.4)}}
+@keyframes comboTextV5{0%{opacity:0;transform:translate(-50%,-50%) scale(.35) rotate(-10deg)}35%{opacity:1;transform:translate(-50%,-50%) scale(1.12) rotate(2deg)}100%{opacity:0;transform:translate(-50%,-58%) scale(1.35) rotate(0)}}
+</style>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#111827">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Fruit Slash">
+</head><body><canvas id="game"></canvas><div id="hud" class="hidden"><div><div id="score">0</div><div id="coinsRun">🪙 0</div></div><div style="text-align:right"><div id="timer">5:00</div><div id="modeLabel">CLASSIQUE</div></div></div><div id="combo"></div>
+<div id="nameScreen" class="screen"><div class="card"><h1 class="title">FRUIT SLASH</h1><p class="sub">Choisis ton pseudo avant ta première partie.</p><input id="name" class="nameInput" maxlength="16" placeholder="Ton pseudo"><button class="btn" id="saveName">CONTINUER</button><div class="tiny">Pseudo enregistré uniquement sur cet appareil.</div></div></div>
+<div id="home" class="screen hidden homeScreen"><div class="homeCard">
+  <div class="homeTop"><div class="brandMark">⚔️</div><div><div class="brandSmall">ARCADE MOBILE</div><h1 class="homeTitle">FRUIT <span>SLASH</span></h1></div><div class="coinPill">🪙 <b id="coinBalance">0</b></div></div>
+  <div class="welcome"><span>Bienvenue, <b id="homeName"></b></span><span class="admin">👑 ADMIN</span></div>
+  <div class="hero"><div class="heroGlow"></div><div class="fruitOrbit f1">🍉</div><div class="fruitOrbit f2">🍊</div><div class="fruitOrbit f3">🍍</div><div class="fruitOrbit f4">🍓</div><div class="blade">⚔</div><div class="heroText"><b>SLASH.</b><br><span>COMBO. SCORE. SURVIS.</span></div></div>
+  <div class="promoGrid"><div id="dailyPromo" class="dailyPromo"><span class="flashBadge">⚡ FLASH DU JOUR</span><div class="dailyIcon">🔥⚔️</div><b>ANIMATION EN PROMO</b><small>Une animation différente chaque jour avec une remise de 30 à 50 % !</small><div class="dailyPrice">Chargement de la promo…</div></div></div>
+  <button class="helpBtn" id="helpBtn">❓ JE DÉCOUVRE LE JEU — AIDE RAPIDE</button>
+  <div class="sectionLabel">CHOISIS TON MODE</div>
+  <button class="modeBtn primaryMode" data-mode="classic"><span class="modeIcon">🎮</span><span><b>CLASSIQUE</b><small>5 minutes • ton meilleur score</small></span><strong>›</strong></button>
+  <div class="modeGrid"><button class="modeBtn" data-mode="rank"><span class="modeIcon">🏆</span><span><b>RANKED</b><small>Grimpe au classement</small></span><strong>›</strong></button><button class="modeBtn" data-mode="multi"><span class="modeIcon">🤖</span><span><b>MULTI</b><small>Affronte les bots</small></span><strong>›</strong></button></div>
+  <div class="quickRow" style="grid-template-columns:repeat(4,1fr)"><button class="quickBtn" id="shopBtn"><span>🛒</span><b>BOUTIQUE</b></button><button class="quickBtn" id="boardBtn"><span>🏆</span><b>CLASSEMENT</b></button><button class="quickBtn" id="profileBtn"><span>👤</span><b>PROFIL</b></button><button class="quickBtn" id="lockerBtn"><span>🧰</span><b>CASIER</b></button><button class="themeBtn" id="themeBtn"><span>🎨</span><b>THÈME</b></button></div>
+  <div class="homeTip">💡 <b>Astuce :</b> les combos montent jusqu'à ×3. Attention aux 💣 !</div>
+</div></div>
+<div id="locker" class="screen hidden"><div class="card"><h2>🧰 CASIER</h2><p class="sub">Choisis l’animation de Slash que tu veux utiliser pendant tes parties.</p><div id="lockerList"></div><button class="btn secondary" id="lockerBack">RETOUR</button></div></div><div id="themes" class="screen hidden"><div class="card"><h2>🎨 THÈMES</h2><p class="sub">Choisis l'ambiance de Fruit Slash. Ton choix est sauvegardé sur cet appareil.</p><div class="themeGrid"><button class="themeCard" data-theme="dark"><div class="themePreview dark"></div><b>🌑 SOMBRE</b><small>Bois sombre classique</small><span class="check">✓</span></button><button class="themeCard" data-theme="light"><div class="themePreview light"></div><b>☀️ ÉCLAIRÉ</b><small>Clair et lumineux</small><span class="check">✓</span></button><button class="themeCard" data-theme="japan"><div class="themePreview japan"></div><b>🌸 JAPONAIS</b><small>Rouge, sakura et katana</small><span class="check">✓</span></button><button class="themeCard" data-theme="neon"><div class="themePreview neon"></div><b>💜 NÉON</b><small>Arcade futuriste</small><span class="check">✓</span></button><button class="themeCard" data-theme="sunset"><div class="themePreview sunset"></div><b>🌅 SUNSET</b><small>Orange et coucher de soleil</small><span class="check">✓</span></button></div><div class="themeNote">💡 Le thème change aussi l'ambiance du terrain pendant la partie.</div><button class="btn secondary" id="themeBack">RETOUR</button></div></div>
+<div id="help" class="screen hidden"><div class="card"><h2>❓ COMMENT JOUER ?</h2><p class="sub">Tout se joue avec ton doigt. Fais glisser ton doigt pour tracer ton Slash.</p><div class="helpList"><div class="helpItem">🍉 <b>SLASH LES FRUITS</b><br><span class="tiny">Coupe les fruits pour gagner des points. Les gros fruits rapportent davantage.</span></div><div class="helpItem">💣 <b>ATTENTION AUX BOMBES</b><br><span class="tiny">Si ton Slash touche une bombe, la partie s'arrête immédiatement.</span></div><div class="helpItem">🪙 <b>RÉCUPÈRE LES PIÈCES</b><br><span class="tiny">10 petites à 1, 3 moyennes à 5 et 2 grandes à 10 : jusqu'à 45 🪙 par partie.</span></div><div class="helpItem">🔥 <b>FAIS DES COMBOS</b><br><span class="tiny">Les combos augmentent ton multiplicateur jusqu'à ×3.</span></div><div class="modeInfo"><b>🎮 CLASSIQUE</b><br><span class="tiny">5 minutes pour faire le meilleur score.</span></div><div class="modeInfo"><b>🏆 RANKED</b><br><span class="tiny">Même gameplay, mais ton score peut entrer dans le classement.</span></div><div class="modeInfo"><b>🤖 MULTI • BOTS</b><br><span class="tiny">Affronte des adversaires contrôlés par le jeu.</span></div><div class="modeInfo"><b>📈 DIFFICULTÉ</b><br><span class="tiny">Plus la partie avance, plus les fruits et les bombes accélèrent.</span></div></div><button class="btn secondary" id="helpBack">RETOUR</button></div></div>
+<div id="shop" class="screen hidden"><div class="card"><h2>🛒 BOUTIQUE SLASH</h2><p class="sub"><span class="adTag">PUBLICITÉ • ANIMATIONS</span><br>Achète des Slash spectaculaires avec les pièces gagnées en partie.</p><div id="dailyShopPromo" class="panel" style="border-color:#ffd44d40;background:linear-gradient(135deg,#3d1b09,#1b0e07);text-align:center"></div><div id="shopList"></div>
+<div class="promoCodeBox"><div class="promoCodeTitle"><b>🎟️ CODE PROMO</b><span class="tiny">- sur une animation</span></div><div class="promoCodeGrid"><input id="promoCodeInput" class="promoInput" maxlength="20" placeholder="Entre ton code"><button class="promoMiniBtn" id="usePromo">UTILISER</button></div><div id="promoStatus" class="promoStatus"></div><div id="adminPromoCreate" class="adminCreate"><b>👑 CRÉER UN CODE</b><div class="tiny">Interface ADMIN • réservée uniquement à Snowy 👑</div><label>CODE</label><input id="newPromoCode" class="promoInput" maxlength="20" placeholder="Ex. FIRE50"><label>RÉDUCTION (10 à 90 %)</label><div class="promoCodeGrid"><input id="newPromoDiscount" class="promoInput" type="number" min="10" max="90" value="30"><button class="promoMiniBtn" id="createPromo">CRÉER</button></div><div id="adminCodeList" class="codeList"></div></div></div><button class="btn secondary" id="shopBack">RETOUR</button></div></div>
+<div id="board" class="screen hidden"><div class="card"><h2>🏆 CLASSEMENT</h2><div id="leaderboard"></div><button class="btn secondary" id="boardBack">RETOUR</button></div></div>
+<div id="profile" class="screen hidden"><div class="card"><h2>👤 PROFIL</h2><div class="panel"><b id="profileName"></b> <span class="admin">👑 ADMIN</span><br><span class="tiny">Meilleur score : <span id="profileBest"></span></span><br><span class="tiny">Pièces : <span id="profileCoins"></span></span></div><button class="btn secondary" id="profileBack">RETOUR</button></div></div>
+<div id="result" class="screen hidden"><div class="card"><h1 class="title">GAME OVER</h1><p id="resultText" class="sub"></p><button class="btn" id="retry">🔄 REJOUER</button><button class="btn secondary" id="resultHome">🏠 ACCUEIL</button></div></div>
+<script>
+const c=document.getElementById('game'),ctx=c.getContext('2d');let W,H,dpr;function resize(){dpr=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;c.width=W*dpr;c.height=H*dpr;c.style.width=W+'px';c.style.height=H+'px';ctx.setTransform(dpr,0,0,dpr,0,0)}addEventListener('resize',resize);resize();
+const KEY={name:'fs_name',coins:'fs_coins',best:'fs_best',slash:'fs_slash',owned:'fs_owned',board:'fs_board'};let name=localStorage.getItem(KEY.name)||'';let coins=+(localStorage.getItem(KEY.coins)||0),best=+(localStorage.getItem(KEY.best)||0),equipped=localStorage.getItem(KEY.slash)||'base';let owned=JSON.parse(localStorage.getItem(KEY.owned)||'["base"]');let board=JSON.parse(localStorage.getItem(KEY.board)||'[]');let promoCodes=JSON.parse(localStorage.getItem('fs_promo_codes')||'[]');let activePromo=null;
+const slashShop=[['base','⚔️ Slash de base',0,'Traînée blanche/bleue classique'],['electric','⚡ Slash électrique',1000,'Éclairs et étincelles'],['fire','🔥 Slash de feu',1500,'Flammes et braises'],['ice','❄️ Slash de glace',2000,'Cristaux et givre'],['rainbow','🌈 Slash arc-en-ciel',3000,'Traînée multicolore'],['special','✨ Animation spéciale',4000,'Effet premium']];
+const future=[['tornado','🌪️ Slash Tornade',4500],['shadow','🌑 Slash Ombre',5000],['galaxy','🌌 Slash Galaxy',6000],['meteor','☄️ Slash Météorite',7000],['crystal','💎 Slash Cristal',10000]];
+const fruits=[['Pomme',27,5,'#e6383e','#ffd15b'],['Orange',27,6,'#ff8e24','#ffd35a'],['Kiwi',26,7,'#77b83d','#d2ec78'],['Pastèque',34,12,'#35a951','#ef4150'],['Ananas',30,15,'#d9a929','#ffe27a'],['Mangue',29,10,'#ffb52d','#ffdc64'],['Pêche',27,8,'#f58d78','#ffd0a8'],['Fraise',23,9,'#e43b46','#ff8f9a'],['Citron',25,6,'#f2d13d','#fff3a1'],['Cerise',22,10,'#b91f3b','#ff7b91'],['Poire',28,8,'#9cc84a','#e5f59b'],['Raisin',25,11,'#6d4bc1','#b99cff']];
+let currentTheme=localStorage.getItem('fs_theme')||'dark';
+function applyTheme(t){currentTheme=t;document.body.className='theme'+(t==='dark'?'':t.charAt(0).toUpperCase()+t.slice(1));localStorage.setItem('fs_theme',t);document.querySelectorAll('[data-theme]').forEach(b=>b.classList.toggle('active',b.dataset.theme===t))}
+function openThemes(){applyTheme(currentTheme);show('themes')}
+let state='home',mode='classic',playing=false,score=0,runCoins=0,timeLeft=300,combo=0,comboTime=0,mult=1,last=0,spawn=0,fr=[],parts=[],slashes=[],halves=[],bombs=[],coinDrops=[],coinBag=[],coinTimer=15;
+const bots=['FruitBot','MelonBot','SliceBot','KiwiBot','NinjaFruit'];
+function save(){localStorage.setItem(KEY.coins,coins);localStorage.setItem(KEY.best,best);localStorage.setItem(KEY.slash,equipped);localStorage.setItem(KEY.owned,JSON.stringify(owned));localStorage.setItem(KEY.board,JSON.stringify(board));localStorage.setItem('fs_promo_codes',JSON.stringify(promoCodes))}function el(id){return document.getElementById(id)}function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.add('hidden'));if(id)el(id).classList.remove('hidden');state=id||'home'}
+function home(){el('homeName').textContent=name;el('coinBalance').textContent=coins;renderDailyPromo();show('home')}function openShop(){renderShop();show('shop')}
+function renderLocker(){const box=el('lockerList');if(!box)return;box.innerHTML=slashShop.map(s=>{const has=owned.includes(s[0]),eq=equipped===s[0];return `<div class="lockerItem ${eq?'active':''}"><div class="lockerPreview">${s[1].split(' ')[0]}</div><div><b>${s[1]}</b><small>${has?'Possédée':'🔒 Non débloquée'} • ${s[3]}</small></div>${eq?'<span class="equippedTag">✓ ÉQUIPÉ</span>':has?`<button class="equipBtn" onclick="equipSlash('${s[0]}')">ÉQUIPER</button>`:''}</div>`}).join('');}function equipSlash(id){if(!owned.includes(id))return;equipped=id;save();renderLocker()}function openBoard(){renderBoard();show('board')}function openProfile(){el('profileName').textContent=name;el('profileBest').textContent=best;el('profileCoins').textContent=coins;show('profile')}
+function dailyPromo(){const d=new Date();const key=d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();let h=0;for(let i=0;i<key.length;i++)h=(h*31+key.charCodeAt(i))>>>0;const eligible=slashShop.filter(x=>x[0]!=='base');const item=eligible[h%eligible.length];const discount=30+(h%21);const sale=Math.max(1,Math.round(item[2]*(1-discount/100)/50)*50);return {item,discount,sale,key}}
+function renderDailyPromo(){const p=dailyPromo(),s=p.item;const home=el('dailyPromo');if(home)home.innerHTML=`<span class=\"flashBadge\">⚡ FLASH DU JOUR</span><div class=\"dailyIcon\">${s[1].split(' ')[0]}⚔️</div><b>${s[1].toUpperCase()}</b><small>Seulement aujourd'hui : <strong>-${p.discount}%</strong> sur cette animation !</small><div class=\"dailyPrice\"><span class=\"oldPrice\">🪙 ${s[2]}</span><span class=\"newPrice\">🪙 ${p.sale}</span></div>`;const shop=el('dailyShopPromo');if(shop)shop.innerHTML=`⚡ <b>FLASH DU JOUR</b> ⚡<br><span class=\"tiny\">${s[1]} : <strong style=\"color:#ffd44d\">-${p.discount}%</strong> aujourd'hui</span><br><span class=\"oldPrice\">🪙 ${s[2]}</span> <strong style=\"color:#ffe26a\">🪙 ${p.sale}</strong>`;return p}
+function renderPromoCodes(){const box=el('adminCodeList');if(!box)return;box.innerHTML=promoCodes.length?promoCodes.map((p,i)=>`<div class="codeRow"><span>🎟️ <b>${p.code}</b> • -${p.discount}%</span><button class="dangerMini" onclick="deletePromo(${i})">SUPPR.</button></div>`).join(''):'<div class="tiny">Aucun code créé.</div>'}
+function usePromo(){const input=el('promoCodeInput'),status=el('promoStatus');const code=(input.value||'').trim().toUpperCase();const p=promoCodes.find(x=>x.code===code);if(!p){status.textContent='❌ Code invalide ou inexistant.';status.style.color='#ff9d8f';return}if(p.used){status.textContent='⚠️ Ce code a déjà été utilisé sur cet appareil.';status.style.color='#ffcf8a';return}activePromo=p;window.activePromo=p;status.innerHTML=`✅ Code <b>${p.code}</b> activé : <b>-${p.discount}%</b> sur ton prochain achat de Slash ou coffre.`;status.style.color='#a8ffd8';renderShop()}
+function createPromo(){const code=(el('newPromoCode').value||'').trim().toUpperCase().replace(/[^A-Z0-9_-]/g,'');let discount=Math.round(+el('newPromoDiscount').value);if(code.length<3){alert('Le code doit contenir au moins 3 caractères.');return}if(!Number.isFinite(discount)||discount<10||discount>90){alert('La réduction doit être comprise entre 10 et 90 %.');return}if(promoCodes.some(x=>x.code===code)){alert('Ce code existe déjà.');return}promoCodes.push({code,discount,used:false});save();el('newPromoCode').value='';renderPromoCodes();el('promoStatus').textContent=`✅ Code ${code} créé avec -${discount}%.`;el('promoStatus').style.color='#a8ffd8'}
+function deletePromo(i){if(!confirm('Supprimer ce code promo ?'))return;promoCodes.splice(i,1);save();if(activePromo&&!promoCodes.includes(activePromo))activePromo=null;renderPromoCodes();renderShop()}
+function renderShop(){const promo=renderDailyPromo();renderPromoCodes();el('shopList').innerHTML=slashShop.map(s=>{let ownedNow=owned.includes(s[0]),eq=equipped===s[0];let cost=s[2];if(s[0]===promo.item[0])cost=promo.sale;if(activePromo&&s[0]!=='base')cost=Math.max(1,Math.round(cost*(1-activePromo.discount/100)/50)*50);return `<div class="shopItem"><div><b>${s[1]} ${s[0]===promo.item[0]?'⚡':''}</b><div class="tag">${s[3]}${s[0]===promo.item[0]?` • PROMO -${promo.discount}%` : ''}</div></div><div>${s[2]===0?'<span class="price">GRATUIT</span>':(activePromo&&s[0]!=='base'?`<span class="oldPrice">🪙 ${s[0]===promo.item[0]?promo.sale:s[2]}</span> <span class="price">🪙 ${cost}</span>`:s[0]===promo.item[0]?`<span class="oldPrice">🪙 ${s[2]}</span> <span class="price">🪙 ${cost}</span>`:`<span class="price">🪙 ${s[2]}</span>`)}<br><button class="btn" style="padding:7px 10px;font-size:13px;width:auto" onclick="buySlash('${s[0]}',${cost})">${eq?'ÉQUIPÉ':ownedNow?'ÉQUIPER':'ACHETER'}</button></div></div>`}).join('')+`<div class="panel"><b>🔒 Futures mises à jour</b><div class="tiny">${future.map(x=>`${x[1]} — ${x[2]} 🪙`).join('<br>')}</div></div>`}
+function buySlash(id,cost){if(owned.includes(id)){equipped=id;save();renderShop();return}if(coins>=cost){coins-=cost;owned.push(id);equipped=id;if(activePromo&&id!=='base'){activePromo.used=true;activePromo=null;window.activePromo=null}save();renderShop();el('coinBalance').textContent=coins}else alert('Pas assez de pièces !')}
+function renderBoard(){let arr=[...board];while(arr.length<5){let b=bots[arr.length];arr.push({name:b,score:Math.floor(900+Math.random()*4200),bot:true})}arr.push({name:name,score:best,me:true});arr.sort((a,b)=>b.score-a.score);el('leaderboard').innerHTML=arr.slice(0,8).map((x,i)=>`<div class="leader"><span>${i+1}. ${x.name} ${x.me?'<span class="admin">👑 ADMIN</span>':''}</span><b>${x.score}</b></div>`).join('')}
+function startGame(m){mode=m;playing=true;score=0;runCoins=0;combo=0;comboTime=0;mult=1;spawn=0;timeLeft=300;fr=[];parts=[];slashes=[];halves=[];bombs=[];coinDrops=[];coinTimer=rnd(3,6);coinBag=[...Array(10).fill(1),...Array(3).fill(5),...Array(2).fill(10)].sort(()=>Math.random()-.5);el('hud').classList.remove('hidden');el('modeLabel').textContent=m==='rank'?'RANKED':m==='multi'?'MULTI • BOTS':'CLASSIQUE';show(null);/* Fruits immediately au début */for(let i=0;i<5;i++){spawnFruit(true)}}
+function endGame(reason='time'){playing=false;el('hud').classList.add('hidden');coins+=runCoins;if(score>best)best=score;if(mode==='rank')board.push({name,score,me:true});save();el('resultText').innerHTML=`Score : <b style="font-size:34px;color:#ffd44d">${score}</b><br>🪙 Pièces gagnées : <b>${runCoins}</b><br>Multiplicateur max : <b>×${mult}</b>${reason==='bomb'?'<br><br>💣 <b>BOMBE TOUCHÉE !</b>':''}<br><br>Meilleur score : <b>${best}</b>`;show('result')}
+function rnd(a,b){return Math.random()*(b-a)+a}function difficulty(){let t=Math.max(0,300-timeLeft);return Math.min(3,t/105+score/4200)}
+function speedScale(){return 1+difficulty()*.42}
+function spawnFruit(immediate=false){let q=fruits[(Math.random()*fruits.length)|0],r=q[1]*rnd(.86,1.14),d=difficulty();let fromBottom=!immediate&&Math.random()<.28;fr.push({type:q[0],x:rnd(r,W-r),y:immediate?rnd(40,H*.18):(fromBottom?H+55:-r-55),r,pts:q[2],a:q[3],b:q[4],vx:rnd(-2.2-1.5*d,2.2+1.5*d),vy:fromBottom?-rnd(13+2*d,17+2*d):rnd(7+1.5*d,11+2*d),ay:fromBottom?-3.5:8.5,rot:rnd(0,6.28),vr:rnd(-.12,.12),dead:false})}
+function spawnBomb(){let r=rnd(23,30),d=difficulty(),fromBottom=Math.random()<.38;bombs.push({x:rnd(r,W-r),y:fromBottom?H+45:-r-45,r,vx:rnd(-2.8-1.5*d,2.8+1.5*d),vy:fromBottom?-rnd(14+3*d,18+3*d):rnd(14+3*d,18+3*d),rot:rnd(0,6.28),vr:rnd(-.1,.1),dead:false})}
+function spawnCoin(){if(!coinBag.length)return;let value=coinBag.shift(),r=value===10?32:value===5?26:21,d=difficulty(),fromBottom=Math.random()<.5;coinDrops.push({x:rnd(r+20,W-r-20),y:fromBottom?H+r+18:-r-18,r,value,vx:rnd(-18,18)*(1+d*.25),vy:fromBottom?-rnd(72+8*d,88+10*d):rnd(72+8*d,88+10*d),rot:0,dead:false,shine:Math.random()*Math.PI*2})}
+function particle(x,y,color,n=18){for(let i=0;i<n;i++)parts.push({x,y,vx:rnd(-7,7),vy:rnd(-8,4),life:rnd(.35,.8),max:.8,size:rnd(2,7),color})}
+function hitAt(x,y){let got=false;for(const b of bombs){if(b.dead)continue;let dx=x-b.x,dy=y-b.y;if(dx*dx+dy*dy<(b.r+13)**2){b.dead=true;particle(b.x,b.y,'#ff6b21',45);endGame('bomb');return true}}for(const co of coinDrops){if(co.dead)continue;let dx=x-co.x,dy=y-co.y;if(dx*dx+dy*dy<(co.r+14)**2){co.dead=true;runCoins+=co.value;particle(co.x,co.y,'#ffd84d',18);got=true}}for(const f of fr){if(f.dead)continue;let dx=x-f.x,dy=y-f.y;if(dx*dx+dy*dy<(f.r+15)**2){f.dead=true;got=true;combo++;comboTime=1.25;mult=combo>=10?3:combo>=4?2:1;score+=f.pts*mult;particle(f.x,f.y,f.b,28);halves.push({x:f.x,y:f.y,r:f.r,a:f.a,b:f.b,type:f.type,life:1,side:-1,rot:f.rot});halves.push({x:f.x,y:f.y,r:f.r,a:f.a,b:f.b,type:f.type,life:1,side:1,rot:f.rot})}}if(got){slashes.push({x,y,life:.2});if(combo>=2){el('combo').textContent=`COMBO ×${mult}`;el('combo').style.opacity=1;el('combo').style.transform='translateX(-50%) scale(1)';clearTimeout(window.ct);window.ct=setTimeout(()=>{el('combo').style.opacity=0;el('combo').style.transform='translateX(-50%) scale(.8)'},450)}}return got}
+let drawing=false,prev=null;function point(e){let q=e.touches?e.touches[0]:e;return{x:q.clientX,y:q.clientY}}function down(e){if(!playing)return;drawing=true;prev=point(e);hitAt(prev.x,prev.y)}function move(e){if(!drawing||!playing)return;e.preventDefault();let p=point(e),dx=p.x-prev.x,dy=p.y-prev.y,len=Math.hypot(dx,dy),n=Math.max(1,Math.ceil(len/9));for(let i=1;i<=n;i++){let x=prev.x+dx*i/n,y=prev.y+dy*i/n;hitAt(x,y);slashes.push({x,y,px:prev.x,py:prev.y,life:.17})}prev=p}function up(){drawing=false;prev=null}c.addEventListener('touchstart',down,{passive:false});c.addEventListener('touchmove',move,{passive:false});c.addEventListener('touchend',up);c.addEventListener('mousedown',down);c.addEventListener('mousemove',move);c.addEventListener('mouseup',up);
+function roundPath(ctx,pts){ctx.beginPath();ctx.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)ctx.lineTo(pts[i][0],pts[i][1]);ctx.closePath()}
+function drawFruit(f){ctx.save();ctx.translate(f.x,f.y);ctx.rotate(f.rot);let r=f.r;ctx.shadowColor='rgba(0,0,0,.35)';ctx.shadowBlur=8;ctx.shadowOffsetY=5;let g=ctx.createRadialGradient(-r*.35,-r*.45,2,r*.15,r*.15,r*1.15);g.addColorStop(0,'#fff8');g.addColorStop(.16,f.a);g.addColorStop(.72,f.a);g.addColorStop(1,'#1117');
+if(f.type==='Pomme'){ctx.fillStyle=g;ctx.beginPath();ctx.moveTo(0,-r*.78);ctx.bezierCurveTo(-r*.2,-r*1.03,-r*.85,-r*.82,-r*.86,-r*.22);ctx.bezierCurveTo(-r*.9,r*.45,-r*.38,r*.88,0,r*1.02);ctx.bezierCurveTo(r*.38,r*.88,r*.9,r*.45,r*.86,-r*.22);ctx.bezierCurveTo(r*.85,-r*.82,r*.2,-r*1.03,0,-r*.78);ctx.fill();ctx.shadowColor='transparent';ctx.strokeStyle='#8c1c22';ctx.lineWidth=1.5;ctx.stroke();ctx.strokeStyle='#5b351d';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(0,-r*.73);ctx.lineTo(r*.05,-r*1.03);ctx.stroke();ctx.fillStyle='#4d9c39';ctx.beginPath();ctx.ellipse(r*.2,-r*.88,r*.28,r*.1,-.3,0,Math.PI*2);ctx.fill();}
+else if(f.type==='Orange'){ctx.fillStyle=g;ctx.beginPath();ctx.arc(0,0,r,0,Math.PI*2);ctx.fill();ctx.shadowColor='transparent';for(let i=0;i<22;i++){let a=Math.random()*Math.PI*2,rr=Math.sqrt(Math.random())*r*.78;ctx.fillStyle='rgba(120,45,5,.22)';ctx.beginPath();ctx.arc(Math.cos(a)*rr,Math.sin(a)*rr,1.1,0,7);ctx.fill()}ctx.fillStyle='#6c8f32';ctx.beginPath();ctx.arc(0,-r*.88,3,0,7);ctx.fill();}
+else if(f.type==='Kiwi'){ctx.fillStyle='#5a351f';ctx.beginPath();ctx.ellipse(0,0,r*.86,r,0,0,Math.PI*2);ctx.fill();ctx.fillStyle='#7fbd45';ctx.beginPath();ctx.ellipse(0,0,r*.69,r*.82,0,0,Math.PI*2);ctx.fill();ctx.fillStyle='#f3e9a2';ctx.beginPath();ctx.arc(0,0,r*.17,0,7);ctx.fill();for(let i=0;i<18;i++){let a=i*Math.PI*2/18,rr=r*.48;ctx.save();ctx.rotate(a);ctx.fillStyle='#272016';ctx.beginPath();ctx.ellipse(rr,0,2.2,4.2,0,0,7);ctx.fill();ctx.restore()}}
+else if(f.type==='Pastèque'){ctx.fillStyle='#238a45';ctx.beginPath();ctx.ellipse(0,0,r*1.05,r*.82,0,0,Math.PI*2);ctx.fill();ctx.shadowColor='transparent';for(let a=-1.2;a<=1.2;a+=.34){ctx.strokeStyle='rgba(8,72,38,.65)';ctx.lineWidth=4;ctx.beginPath();ctx.ellipse(0,0,r*.94,r*.72,a,a+.18,a+.3);ctx.stroke()}ctx.fillStyle='#f26b57';ctx.beginPath();ctx.ellipse(0,0,r*.72,r*.53,0,0,Math.PI*2);ctx.fill();for(let i=0;i<14;i++){let a=i*Math.PI*2/14;ctx.fillStyle='#23170f';ctx.beginPath();ctx.ellipse(Math.cos(a)*r*.5,Math.sin(a)*r*.36,2,4,a,0,7);ctx.fill()}}
+else if(f.type==='Ananas'){ctx.fillStyle=g;ctx.beginPath();ctx.ellipse(0,r*.08,r*.72,r*.9,0,0,7);ctx.fill();ctx.shadowColor='transparent';ctx.strokeStyle='#8b6511';ctx.lineWidth=2;for(let yy=-.55;yy<=.55;yy+=.28){for(let xx=-.5;xx<=.5;xx+=.28){ctx.beginPath();ctx.moveTo(xx*r,yy*r);ctx.lineTo((xx+.12)*r,(yy+.12)*r);ctx.stroke()}}ctx.fillStyle='#3f9a47';for(let i=-2;i<=2;i++){ctx.beginPath();ctx.moveTo(i*5,-r*.72);ctx.quadraticCurveTo(i*8,-r*1.25,i*10,-r*1.48);ctx.lineTo(i*10+6,-r*1.5);ctx.quadraticCurveTo(i*6,-r*1.05,i*4,-r*.72);ctx.fill()}}
+else {ctx.fillStyle=g;ctx.beginPath();ctx.moveTo(-r*.2,-r*.82);ctx.bezierCurveTo(r*.7,-r*.9,r*.85,-r*.15,r*.55,r*.55);ctx.bezierCurveTo(r*.25,r*1.0,-r*.5,r*.78,-r*.7,r*.1);ctx.bezierCurveTo(-r*.9,-r*.5,-r*.6,-r*.75,-r*.2,-r*.82);ctx.fill();ctx.shadowColor='transparent';ctx.strokeStyle='#8a4b15';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(-r*.05,-r*.72);ctx.lineTo(r*.05,-r*1.02);ctx.stroke();ctx.fillStyle='#3d9b43';ctx.beginPath();ctx.ellipse(r*.2,-r*.93,r*.28,r*.11,-.35,0,7);ctx.fill()}
+ctx.shadowColor='transparent';ctx.fillStyle='#fff7';ctx.beginPath();ctx.ellipse(-r*.3,-r*.42,r*.18,r*.09,-.6,0,7);ctx.fill();ctx.restore()}
+function drawHalf(h){ctx.save();ctx.globalAlpha=Math.max(0,h.life);ctx.translate(h.x,h.y);ctx.rotate(h.rot);let r=h.r;ctx.fillStyle=h.a;ctx.beginPath();ctx.arc(0,0,r,-Math.PI/2,Math.PI/2);ctx.lineTo(0,0);ctx.closePath();ctx.fill();ctx.strokeStyle='#ffffffaa';ctx.lineWidth=2;ctx.stroke();ctx.fillStyle=h.type==='Pastèque'?'#ef6a55':h.type==='Kiwi'?'#8fc84d':h.type==='Orange'?'#ffb32d':h.type==='Ananas'?'#ffd84b':h.type==='Pomme'?'#ffb0a0':'#ffd45c';ctx.beginPath();ctx.arc(0,0,r*.72,-Math.PI/2,Math.PI/2);ctx.lineTo(0,0);ctx.closePath();ctx.fill();ctx.fillStyle='#2a1a12';for(let i=0;i<7;i++){let a=-1.1+i*.36;ctx.beginPath();ctx.ellipse(Math.cos(a)*r*.48,Math.sin(a)*r*.48,1.8,3.5,a,0,7);ctx.fill()}ctx.restore()}
+function drawBomb(b){ctx.save();ctx.translate(b.x,b.y);ctx.rotate(b.rot);ctx.fillStyle='#202020';ctx.beginPath();ctx.arc(0,0,b.r,0,7);ctx.fill();ctx.strokeStyle='#777';ctx.lineWidth=3;ctx.stroke();ctx.fillStyle='#ff4b2e';ctx.beginPath();ctx.arc(-b.r*.3,-b.r*.3,4,0,7);ctx.fill();ctx.strokeStyle='#f7a35b';ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(b.r*.5,-b.r*.65);ctx.quadraticCurveTo(b.r*.9,-b.r*1.1,b.r*1.1,-b.r*.65);ctx.stroke();ctx.restore()}
+function drawCoin(co){ctx.save();ctx.translate(co.x,co.y);ctx.rotate(co.rot);let gold=co.value===10?'#fff0a1':co.value===5?'#ffd35a':'#ffe89b';ctx.shadowColor='#ffd84d';ctx.shadowBlur=18+Math.sin(performance.now()/140+co.shine)*5;let g=ctx.createRadialGradient(-co.r*.35,-co.r*.45,2,0,0,co.r);g.addColorStop(0,'#fffdf0');g.addColorStop(.25,gold);g.addColorStop(1,'#d18a00');ctx.fillStyle=g;ctx.beginPath();ctx.arc(0,0,co.r,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;ctx.strokeStyle='#fff1a8';ctx.lineWidth=3;ctx.stroke();ctx.fillStyle='#8b5700';ctx.font=`900 ${Math.max(13,co.r*.9)}px Arial`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(co.value,0,1);ctx.globalAlpha=.75;ctx.fillStyle='#fff';ctx.beginPath();ctx.ellipse(-co.r*.28,-co.r*.42,co.r*.18,co.r*.08,-.5,0,Math.PI*2);ctx.fill();ctx.restore()}
+function drawSlash(s){let color='#dff7ff';if(equipped==='fire')color='#ff7a24';if(equipped==='ice')color='#8feaff';if(equipped==='electric')color='#b5a4ff';if(equipped==='rainbow'){let gr=ctx.createLinearGradient(s.px,s.py,s.x,s.y);gr.addColorStop(0,'#ff5b5b');gr.addColorStop(.25,'#ffd75a');gr.addColorStop(.5,'#6dff8a');gr.addColorStop(.75,'#6bd9ff');gr.addColorStop(1,'#d27cff');color=gr}if(equipped==='special')color='#ffe6a0';ctx.save();ctx.globalAlpha=Math.max(0,s.life/.2);ctx.strokeStyle=color;ctx.shadowColor=color;ctx.shadowBlur=18;ctx.lineWidth=7;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(s.px??s.x-25,s.py??s.y-25);ctx.lineTo(s.x,s.y);ctx.stroke();ctx.restore()}
+function background(){let g=ctx.createLinearGradient(0,0,0,H);if(currentTheme==='light'){g.addColorStop(0,'#dfe9f2');g.addColorStop(1,'#aebdca')}else if(currentTheme==='japan'){g.addColorStop(0,'#35121f');g.addColorStop(1,'#12070d')}else if(currentTheme==='neon'){g.addColorStop(0,'#101b43');g.addColorStop(1,'#070812')}else if(currentTheme==='sunset'){g.addColorStop(0,'#5a210f');g.addColorStop(1,'#1b0905')}else{g.addColorStop(0,'#2a160a');g.addColorStop(1,'#0b0603')}ctx.fillStyle=g;ctx.fillRect(0,0,W,H);ctx.globalAlpha=.13;ctx.strokeStyle=currentTheme==='japan'?'#f1d9b5':currentTheme==='neon'?'#7ffcff':currentTheme==='light'?'#526273':'#ffd6a8';ctx.lineWidth=2;for(let y=0;y<H;y+=70){ctx.beginPath();ctx.moveTo(0,y+((y*7)%30));ctx.quadraticCurveTo(W*.5,y-15,W,y+20);ctx.stroke()}if(currentTheme==='japan'){ctx.globalAlpha=.10;for(let i=0;i<10;i++){ctx.beginPath();ctx.arc((i*97)%W,(i*173)%H,12,0,7);ctx.stroke()}}ctx.globalAlpha=1}
+function draw(){background();for(const h of halves)drawHalf(h);for(const f of fr)if(!f.dead)drawFruit(f);for(const b of bombs)if(!b.dead)drawBomb(b);for(const co of coinDrops)if(!co.dead)drawCoin(co);for(const p of parts){ctx.globalAlpha=Math.max(0,p.life/p.max);ctx.fillStyle=p.color;ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,7);ctx.fill()}ctx.globalAlpha=1;for(const s of slashes)drawSlash(s)}
+function update(dt){if(!playing)return;timeLeft-=dt;if(timeLeft<=0){timeLeft=0;endGame();return}let d=difficulty(),sp=speedScale();spawn-=dt;let rate=Math.max(.16,.64-d*.16);if(spawn<=0){spawn=rate;spawnFruit();if(Math.random()<.24+d*.09)spawnFruit();/* Bombes : aucune au début, puis de plus en plus */if((score>=350||timeLeft<235)&&Math.random()<.12+d*.13)spawnBomb()}coinTimer-=dt;if(coinTimer<=0&&coinBag.length){spawnCoin();coinTimer=rnd(8,14)}if(comboTime>0)comboTime-=dt;else{combo=0;mult=1}for(const f of fr){f.x+=f.vx*dt*3*sp;f.y+=f.vy*dt*3*sp;f.vy+=f.ay*dt;f.rot+=f.vr*sp}for(const b of bombs){b.x+=b.vx*dt*3*sp;b.y+=b.vy*dt*3*sp;b.vy+=(22*sp)*dt;b.rot+=b.vr*sp}for(const co of coinDrops){co.x+=co.vx*dt*3*sp;co.y+=co.vy*dt*3*sp;co.vy+=(20*sp)*dt;co.rot+=dt*4*sp}fr=fr.filter(x=>!x.dead&&x.y<H+100);bombs=bombs.filter(x=>!x.dead&&x.y<H+100);coinDrops=coinDrops.filter(x=>!x.dead&&x.y<H+100);for(const p of parts){p.x+=p.vx*dt*3;p.y+=p.vy*dt*3;p.vy+=15*dt;p.life-=dt}parts=parts.filter(x=>x.life>0);for(const h of halves){h.life-=dt;h.x+=h.side*80*dt;h.y+=70*dt;h.rot+=h.side*.8*dt}halves=halves.filter(x=>x.life>0);for(const s of slashes)s.life-=dt;slashes=slashes.filter(x=>x.life>0);el('score').textContent=score;el('coinsRun').textContent='🪙 '+runCoins;let sec=Math.ceil(timeLeft);el('timer').textContent=`${Math.floor(sec/60)}:${String(sec%60).padStart(2,'0')}`}
+function loop(t){let dt=Math.min(.033,(t-last)/1000||0);last=t;update(dt);draw();requestAnimationFrame(loop)}requestAnimationFrame(loop);
+const gameNews=[
+ {icon:'🚀',tag:'PROCHAINE MISE À JOUR',title:'Nouveau pack de Slash',text:'Tornade, Ombre, Galaxy, Météorite et Cristal arrivent dans les prochaines mises à jour.',hot:true},
+ {icon:'🎨',tag:'EN PRÉPARATION',title:'Nouveaux thèmes',text:'De nouvelles ambiances pourront rejoindre le jeu : espace, volcan, forêt et glace.'},
+ {icon:'🪙',tag:'ÉCONOMIE',title:'Pièces et récompenses',text:'Le système de récompenses reste volontairement équilibré : jusqu’à 45 pièces par partie.'},
+ {icon:'⚡',tag:'PROMO',title:'Flash Animation du jour',text:'Chaque jour, une animation bénéficie d’une remise comprise entre 30 % et 50 %.'},
+ {icon:'📰',tag:'Bientôt',title:'Plus de fruits',text:'De nouveaux fruits pourront être ajoutés pour varier encore les parties.'}
+];
+function renderNews(){const box=el('newsList');if(!box)return;box.innerHTML=gameNews.map((n,i)=>`<div class="newsItem ${n.hot?'hot':''}"><span class="newsIcon">${n.icon}</span><span class="newsBadge">${n.tag}</span><b>${n.title}</b><small>${n.text}</small>${i===0?'<div class="countdown">✨ Contenu prévu pour une prochaine version</div>':''}</div>`).join('')+`<div class="newsMini">💡 <b>Conseil :</b> regarde cet onglet régulièrement pour découvrir les nouveautés.</div>`}
+function init(){applyTheme(currentTheme);if(!name){show('nameScreen')}else home()}el('saveName').onclick=()=>{let n=el('name').value.trim();if(n.length<2){alert('Choisis un pseudo de 2 caractères minimum.');return}name=n;localStorage.setItem(KEY.name,name);home()};document.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>startGame(b.dataset.mode));el('shopBtn').onclick=openShop;el('lockerBtn').onclick=()=>{renderLocker();show('locker')};el('lockerBack').onclick=home;el('themeBtn').onclick=openThemes;el('themeBack').onclick=home;document.querySelectorAll('[data-theme]').forEach(b=>b.onclick=()=>{applyTheme(b.dataset.theme)});el('boardBtn').onclick=openBoard;el('profileBtn').onclick=openProfile;el('helpBtn').onclick=()=>show('help');el('helpBack').onclick=home;el('shopBack').onclick=home;el('boardBack').onclick=home;el('profileBack').onclick=home;el('usePromo').onclick=usePromo;el('createPromo').onclick=createPromo;el('retry').onclick=()=>startGame(mode);el('resultHome').onclick=home;init();
+</script>
+<style>
+.featureNav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}.featureBtn{border:1px solid #ffffff22;background:#ffffff0d;color:inherit;border-radius:16px;padding:12px 10px;font-weight:800;cursor:pointer}.featureBtn:active{transform:scale(.98)}
+.featureGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0}.featureCard{background:#ffffff0b;border:1px solid #ffffff16;border-radius:16px;padding:12px}.featureCard b{display:block;margin-bottom:5px}.featureCard small{display:block;opacity:.78;line-height:1.35}.progress{height:10px;background:#ffffff16;border-radius:99px;overflow:hidden;margin:8px 0}.progress>i{display:block;height:100%;background:linear-gradient(90deg,#67e8f9,#a78bfa,#fb7185);border-radius:99px}.row2{display:flex;justify-content:space-between;gap:8px;align-items:center}.miniBtn{border:0;border-radius:10px;padding:7px 9px;font-weight:800;cursor:pointer;background:#ffffff16;color:inherit}.danger{background:#ff5b5b22}.success{background:#58e69a22}.locked{opacity:.6}.chest{border:1px solid #ffffff18;border-radius:16px;padding:14px;margin:9px 0;background:#ffffff08}.chest button{margin-top:8px}.reward{padding:12px;border-radius:14px;background:#ffffff0c;margin:8px 0}.event{border:1px solid #ffd44d66;background:#ffd44d12}.pill2{display:inline-block;padding:4px 8px;border-radius:999px;background:#ffffff12;font-size:12px;margin:2px}.accountRow{display:flex;gap:8px;align-items:center;padding:10px;border-radius:12px;background:#ffffff08;margin:6px 0}.accountRow b{flex:1}.bossBar{height:16px;border-radius:99px;background:#ffffff18;overflow:hidden}.bossBar i{display:block;height:100%;width:100%;background:linear-gradient(90deg,#fb7185,#f97316);transition:width .2s}.toastFS{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:50;padding:12px 16px;border-radius:14px;background:#111c;color:#fff;border:1px solid #ffffff22;box-shadow:0 10px 30px #0008;font-weight:800;display:none}
+</style>
+<div id="missions" class="screen hidden"><div class="card"><h2>🎯 MISSIONS</h2><div id="missionsList"></div><button class="btn secondary" id="missionsBack">RETOUR</button></div></div>
+<div id="challenges" class="screen hidden"><div class="card"><h2>🧩 DÉFIS SPÉCIAUX</h2><div id="challengesList"></div><button class="btn secondary" id="challengesBack">RETOUR</button></div></div>
+<div id="worlds" class="screen hidden"><div class="card"><h2>🌍 MONDES</h2><div id="worldsList"></div><button class="btn secondary" id="worldsBack">RETOUR</button></div></div>
+<div id="rankedPlus" class="screen hidden"><div class="card"><h2>🏆 RANGS</h2><div id="rankInfo"></div><button class="btn secondary" id="rankBack">RETOUR</button></div></div>
+<div id="frenzy" class="screen hidden"><div class="card"><h2>⚡ FRENZY</h2><p class="sub">Le mode ultra-rapide.</p><div id="frenzyInfo"></div><button class="btn" id="startFrenzy">⚡ JOUER</button><button class="btn secondary" id="frenzyBack">RETOUR</button></div></div>
+<div id="chests" class="screen hidden"><div class="card"><h2>🎁 COFFRES</h2><div id="chestsList"></div><button class="btn secondary" id="chestsBack">RETOUR</button></div></div>
+<div id="inventory" class="screen hidden"><div class="card"><h2>🎒 INVENTAIRE</h2><div id="inventoryList"></div><button class="btn secondary" id="inventoryBack">RETOUR</button></div></div>
+<div id="friends" class="screen hidden"><div class="card"><h2>👥 AMIS</h2><div class="featureCard"><input id="friendInput" class="promoInput" placeholder="Pseudo unique"><button class="miniBtn" id="addFriend">AJOUTER</button></div><div id="friendsList"></div><button class="btn secondary" id="friendsBack">RETOUR</button></div></div>
+<div id="boss" class="screen hidden"><div class="card"><h2>👹 BOSS FINAL</h2><p class="sub">Ton combo augmente la difficulté.</p><div class="bossBar"><i id="bossBar"></i></div><p id="bossText" class="tiny"></p><button class="btn" id="bossHit">⚔️ FRAPPER</button><button class="btn secondary" id="bossBack">RETOUR</button></div></div>
+<div id="accounts" class="screen hidden"><div class="card"><h2>👤 COMPTES</h2><div id="accountsList"></div><input id="newAccount" class="promoInput" placeholder="Créer un pseudo unique"><button class="btn" id="createAccount">CRÉER / SE CONNECTER</button><button class="btn secondary" id="accountsBack">RETOUR</button></div></div>
+<div id="toastFS" class="toastFS"></div>
+<script>
+(()=>{
+ const oldSave=window.save;
+ const get=(k,d)=>{try{return JSON.parse(localStorage.getItem(k)||JSON.stringify(d))}catch{return d}};
+ let fs={level:+localStorage.getItem('fs_level')||1,xp:+localStorage.getItem('fs_xp')||0,fruits:+localStorage.getItem('fs_fruits')||0,games:+localStorage.getItem('fs_games')||0,bestCombo:+localStorage.getItem('fs_bestcombo')||0,rankXP:+localStorage.getItem('fs_rankxp')||0,world:localStorage.getItem('fs_world')||'forêt',friends:get('fs_friends',[]),inventory:get('fs_inventory',[]),trophies:get('fs_trophies',[]),dailyDay:localStorage.getItem('fs_dailyDay')||'',dailyClaimed:!!+localStorage.getItem('fs_dailyClaimed')||false,missionDay:localStorage.getItem('fs_missionDay')||'',missions:get('fs_missions',{}),challenges:get('fs_challenges',{}),frenzyBest:+localStorage.getItem('fs_frenzyBest')||0,bossBest:+localStorage.getItem('fs_bossBest')||0};
+ const accounts=get('fs_accounts',[{name:'Snowy',admin:true}]); if(!accounts.some(a=>a.name==='Snowy'))accounts.push({name:'Snowy',admin:true});
+ const rankNames=['Bronze','Argent','Or','Platine','Diamant','Élite'];
+ const missions=[['fruits100','🍎 Couper 100 fruits',100,25],['combo3','🔥 Faire un combo x3',1,20],['coins20','🪙 Gagner 20 pièces',20,15]];
+ const challenges=[['fast','🚀 Fruits ultra-rapides'],['dark','🌑 Mode sombre'],['certain','🍓 Certains fruits uniquement'],['bombs','💣 Plus de bombes']];
+ const worlds=[['forêt','🌳 Forêt',1],['volcan','🌋 Volcan',3],['glace','❄️ Glace',5],['espace','🌌 Espace',8]];
+ const chests=[
+  {id:'small',name:'🟫 Petit coffre',price:50,odds:[[.50,'🪙 5 pièces',()=>5],[.30,'🪙 10 pièces',()=>10],[.10,'🪙 15 pièces',()=>15],[.10,'🔥 Slash Feu',()=> 'fire']]},
+  {id:'medium',name:'🟦 Coffre moyen',price:150,odds:[[.50,'🪙 5 pièces',()=>5],[.20,'🪙 10 pièces',()=>10],[.15,'🪙 15 pièces',()=>15],[.10,'🪙 20 pièces',()=>20],[.05,'❄️ Slash Glace',()=> 'ice']]},
+  {id:'large',name:'🟪 Grand coffre',price:350,odds:[[.50,'🪙 10 pièces',()=>10],[.20,'🪙 20 pièces',()=>20],[.19,'🪙 30 pièces',()=>30],[.10,'🔥 Slash Feu',()=> 'fire'],[.01,'✨ Slash Spéciale',()=> 'special']]}
+ ];
+ function persist(){localStorage.setItem('fs_level',fs.level);localStorage.setItem('fs_xp',fs.xp);localStorage.setItem('fs_fruits',fs.fruits);localStorage.setItem('fs_games',fs.games);localStorage.setItem('fs_bestcombo',fs.bestCombo);localStorage.setItem('fs_rankxp',fs.rankXP);localStorage.setItem('fs_world',fs.world);localStorage.setItem('fs_friends',JSON.stringify(fs.friends));localStorage.setItem('fs_inventory',JSON.stringify(fs.inventory));localStorage.setItem('fs_trophies',JSON.stringify(fs.trophies));localStorage.setItem('fs_dailyDay',fs.dailyDay);localStorage.setItem('fs_dailyClaimed',fs.dailyClaimed?'1':'0');localStorage.setItem('fs_missions',JSON.stringify(fs.missions));localStorage.setItem('fs_missionDay',fs.missionDay||'');localStorage.setItem('fs_challenges',JSON.stringify(fs.challenges));localStorage.setItem('fs_frenzyBest',fs.frenzyBest);localStorage.setItem('fs_bossBest',fs.bossBest);localStorage.setItem('fs_accounts',JSON.stringify(accounts));}
+ window.save=function(){oldSave();persist()};
+ function toast(t){const x=el('toastFS');x.textContent=t;x.style.display='block';clearTimeout(window.fsToast);window.fsToast=setTimeout(()=>x.style.display='none',2200)}
+ function isAdmin(){return name==='Snowy'}
+ function xpNeed(){return 500+((fs.level-1)*700)}
+ function addXP(n){fs.xp+=n;while(fs.xp>=xpNeed()){fs.xp-=xpNeed();fs.level++;toast('🎉 Niveau '+fs.level+' !')}save()}
+ function activeRank(){let i=Math.min(rankNames.length-1,Math.floor(fs.rankXP/1000));return {name:rankNames[i],i,cur:fs.rankXP-i*1000,need:i===rankNames.length-1?1000:1000}}
+ function promoCost(base){let p=window.activePromo;if(!p)return base;return Math.max(1,Math.round(base*(1-p.discount/100)/5)*5)}
+ function eventSlash(){return ['event','✨ Slash Événementielle',0,'Gratuite le 8 novembre 2026']}
+ const future2=[['tornado','🌪️ Slash Tornade',4500,'2026-09-15'],['shadow','🌑 Slash Ombre',5000,'2026-10-01'],['galaxy','🌌 Slash Galaxy',6000,'2026-10-20'],['meteor','☄️ Slash Météorite',7000,'2026-11-01'],['event','✨ Slash Événementielle',0,'2026-11-08'],['crystal','💎 Slash Cristal',10000,'2026-11-20']];
+ function availableFuture(id){const x=future2.find(a=>a[0]===id);return x && new Date()>=new Date(x[3]+'T00:00:00')}
+ function slashLevel(id){return ({electric:5,fire:20,ice:25,rainbow:30,special:35,tornado:40,shadow:45,galaxy:50,meteor:55,crystal:60,event:1})[id]||1}
+ function addFeatureNav(){return;
+  /* disabled: V4 magazine shelf is the single launcher */
+  /*const homeEl=el('home');if(!homeEl||homeEl.querySelector('.featureNav'))return;const nav=document.createElement('div');nav.className='featureNav';nav.innerHTML='';homeEl.querySelector('.card')?.appendChild(nav);el('fsFeatures').onclick=()=>{renderFeatures();show('features')};el('fsAccounts').onclick=()=>{renderAccounts();show('accounts')}}
+ */}
+ function renderFeatures(){el('featureGrid').innerHTML=[['🎯','Missions','missions'],['🧩','Défis','challenges'],['🌍','Mondes','worlds'],['🏆','Rangs + progression','rankedPlus'],['⚡','Frenzy','frenzy'],['🎁','Coffres','chests'],['🎒','Inventaire','inventory'],['👥','Amis','friends'],['👹','Boss final','boss']].map(x=>`<button class="featureCard featureBtn" onclick="show('${x[2]}');window.fsRender('${x[2]}')"><b>${x[0]} ${x[1]}</b><small>Ouvrir</small></button>`).join('')}
+ window.fsRender=function(id){if(id==='missions')renderMissions();if(id==='challenges')renderChallenges();if(id==='worlds')renderWorlds();if(id==='rankedPlus')renderRank();if(id==='frenzy')renderFrenzy();if(id==='chests')renderChests();if(id==='inventory')renderInventory();if(id==='friends')renderFriends();if(id==='boss')renderBoss()};
+ function renderMissions(){const today=new Date().toISOString().slice(0,10);if(fs.missionDay!==today){fs.missionDay=today;fs.missions={};save()}el('missionsList').innerHTML=missions.map(m=>{const v=+fs.missions[m[0]]||0,done=v>=m[2],pct=Math.min(100,v/m[2]*100);return `<div class="featureCard ${done?'success':''}"><b>${m[1]}</b><small>${Math.min(v,m[2])}/${m[2]} • récompense ${m[3]} XP</small><div class="progress"><i style="width:${pct}%"></i></div>${done&&!fs.missions[m[0]+'_claimed']?`<button class="miniBtn" onclick="window.claimMission('${m[0]}',${m[3]})">RÉCUPÉRER</button>`:done?'✅ Terminée':'⏳ En cours'}</div>`}).join('')}
+ window.claimMission=(id,r)=>{if(fs.missions[id+'_claimed'])return;fs.missions[id+'_claimed']=1;addXP(r);renderMissions();toast('🎁 Mission récompensée !')}
+ function renderChallenges(){el('challengesList').innerHTML=challenges.map(c=>`<div class="featureCard"><b>${c[1]}</b><small>Défi spécial à relever pendant une partie.</small><span class="pill2">Récompense XP</span></div>`).join('')}
+ function renderWorlds(){el('worldsList').innerHTML=worlds.map(w=>{const ok=fs.level>=w[2];return `<div class="featureCard ${ok?'':'locked'}"><div class="row2"><b>${w[1]}</b><button class="miniBtn" ${ok?'':'disabled'} onclick="window.selectWorld('${w[0]}')">${fs.world===w[0]?'SÉLECTIONNÉ':ok?'CHOISIR':'NIV. '+w[2]}</button></div><small>${ok?'Monde disponible.':'Atteins le niveau '+w[2]+' pour débloquer.'}</small></div>`}).join('')}
+ window.selectWorld=w=>{fs.world=w;save();renderWorlds();toast('🌍 Monde sélectionné : '+w)}
+ function renderRank(){const r=activeRank(),pct=r.cur/1000*100;el('rankInfo').innerHTML=`<div class="featureCard"><b>🏆 ${r.name}</b><small>${r.cur}/1000 points de rang</small><div class="progress"><i style="width:${pct}%"></i></div><small>Gagne des points en mode Ranked.</small></div>`}
+ function renderFrenzy(){el('frenzyInfo').innerHTML=`<div class="featureCard"><b>⚡ Mode Frenzy</b><small>Fruits plus rapides, davantage de bombes et action intense.</small><span class="pill2">Record : ${fs.frenzyBest}</span></div>`}
+ function renderInventory(){el('inventoryList').innerHTML=`<div class="featureCard"><b>🎒 Slash possédées</b><small>${owned.length} / ${slashShop.length+future2.length} connues</small></div>`+(fs.inventory.length?fs.inventory.map(x=>`<div class="reward">🎁 ${x}</div>`).join(''):'<div class="tiny">Ton inventaire spécial est vide.</div>')}
+ function renderFriends(){el('friendsList').innerHTML=fs.friends.length?fs.friends.map((f,i)=>`<div class="accountRow">👤 <b>${f}</b><button class="miniBtn danger" onclick="window.removeFriend(${i})">✕</button></div>`).join(''):'<div class="tiny">Aucun ami pour le moment.</div>'}
+ window.removeFriend=i=>{fs.friends.splice(i,1);save();renderFriends()};
+ function renderAccounts(){el('accountsList').innerHTML=accounts.map(a=>`<div class="accountRow"><span>${a.name==='Snowy'?'👑':'👤'}</span><b>${a.name}</b><button class="miniBtn" onclick="window.loginAccount('${a.name.replace(/'/g,"\\'")}')">${name===a.name?'ACTIF':'OUVRIR'}</button></div>`).join('')}
+ window.loginAccount=n=>{name=n;localStorage.setItem(KEY.name,name);home();toast('👤 Connecté : '+n)};
+ function createAccount(){let n=(el('newAccount').value||'').trim();if(n.length<2)return alert('Pseudo de 2 caractères minimum.');if(n==='Snowy'&&!accounts.some(a=>a.name==='Snowy'))accounts.push({name:'Snowy',admin:true});if(accounts.some(a=>a.name.toLowerCase()===n.toLowerCase()))return alert('Ce pseudo est déjà utilisé.');accounts.push({name:n,admin:false});el('newAccount').value='';window.loginAccount(n);persist()}
+ function renderChests(){el('chestsList').innerHTML=chests.map(c=>{let cost=promoCost(c.price);return `<div class="chest"><div class="row2"><b>${c.name}</b><span>🪙 ${cost}${cost!==c.price?` <s>${c.price}</s>`:''}</span></div><small>${c.odds.map(o=>`${Math.round(o[0]*100)}% ${o[1]}`).join(' • ')}</small><br><button class="miniBtn" onclick="window.openChest('${c.id}',${cost})">OUVRIR</button></div>`}).join('')}
+ function rollChest(c){let r=Math.random(),sum=0;for(const o of c.odds){sum+=o[0];if(r<sum)return o}return c.odds[c.odds.length-1]}
+ window.openChest=(id,cost)=>{const c=chests.find(x=>x.id===id);if(!c||coins<cost)return toast('🪙 Pas assez de pièces !');coins-=cost;if(activePromo){activePromo.used=true;activePromo=null;window.activePromo=null}const o=rollChest(c),v=o[2]();if(typeof v==='number')coins+=v;else if(!owned.includes(v)){owned.push(v);fs.inventory.push(o[1])}else fs.inventory.push(o[1]+' (doublon)');save();renderChests();el('coinBalance').textContent=coins;toast('🎁 '+o[1])};
+ function renderBoss(){const hp=+localStorage.getItem('fs_bossHP')||100;el('bossBar').style.width=hp+'%';el('bossText').textContent=`PV : ${hp}/100 • Difficulté liée à ton combo. ${hp<=0?'🏆 Boss vaincu !':''}`}
+ window.bossHit=()=>{let hp=+localStorage.getItem('fs_bossHP')||100;let comboNow=window.combo||0;let dmg=5+Math.min(20,comboNow*2);hp=Math.max(0,hp-dmg);localStorage.setItem('fs_bossHP',hp);if(hp<=0){coins+=50;fs.bossBest=Math.max(fs.bossBest,100);addXP(150);toast('👹 Boss vaincu ! +50 🪙')}save();renderBoss()};
+ function wire(){addFeatureNav();el('featuresBack').onclick=home;el('missionsBack').onclick=()=>{renderFeatures();show('features')};el('challengesBack').onclick=()=>{renderFeatures();show('features')};el('worldsBack').onclick=()=>{renderFeatures();show('features')};el('rankBack').onclick=()=>{renderFeatures();show('features')};el('frenzyBack').onclick=()=>{renderFeatures();show('features')};el('chestsBack').onclick=()=>{renderFeatures();show('features')};el('inventoryBack').onclick=()=>{renderFeatures();show('features')};el('friendsBack').onclick=()=>{renderFeatures();show('features')};el('bossBack').onclick=()=>{renderFeatures();show('features')};el('accountsBack').onclick=home;el('createAccount').onclick=createAccount;el('addFriend').onclick=()=>{let n=(el('friendInput').value||'').trim();if(!n||n===name)return;if(!fs.friends.includes(n))fs.friends.push(n);el('friendInput').value='';save();renderFriends()};el('bossHit').onclick=window.bossHit;el('startFrenzy').onclick=()=>{startGame('frenzy');mode='frenzy'};el('frenzyInfo').onclick=()=>{};}
+ // Account/admin display correction
+ const oldRenderPromo=window.renderPromoCodes;window.renderPromoCodes=function(){if(el('adminPromoCreate'))el('adminPromoCreate').style.display=isAdmin()?'block':'none';if(!isAdmin()){if(el('adminCodeList'))el('adminCodeList').innerHTML='';return}return oldRenderPromo()};
+ const oldRenderShop=window.renderShop;window.renderShop=function(){oldRenderShop();if(el('adminPromoCreate'))el('adminPromoCreate').style.display=(name==='Snowy')?'block':'none';const p=window.activePromo;if(el('adminPromoCreate'))el('adminPromoCreate').style.display=isAdmin()?'block':'none';const input=el('promoCodeInput');if(input)input.closest('.panel')?.querySelector('label')&&(input.closest('.panel').querySelector('label').textContent='UTILISER UN COUPON');};
+ const oldStart=window.startGame;window.startGame=function(m){oldStart(m);if(m==='frenzy'){timeLeft=90;coinTimer=2;for(let i=0;i<4;i++)spawnFruit(true)}else if(m==='rank'){fs.rankXP=Math.min(6000,fs.rankXP+5)}save()};
+ const oldHit=window.hitAt;window.hitAt=function(x,y){const before=fr.length;const out=oldHit(x,y);if(out&&before>fr.length){fs.fruits++;fs.missions.fruits100=(+fs.missions.fruits100||0)+1;addXP(2);if(combo>=fs.bestCombo)fs.bestCombo=combo;if(combo>=10)fs.missions.combo3=1}if(runCoins>=20)fs.missions.coins20=20;return out};
+ const oldEnd=window.endGame;window.endGame=function(reason){fs.games++;if(combo>=fs.bestCombo)fs.bestCombo=combo;if(mode==='rank')fs.rankXP=Math.min(6000,fs.rankXP+Math.min(250,Math.floor(score/20)));if(mode==='frenzy')fs.frenzyBest=Math.max(fs.frenzyBest,score);addXP(Math.floor(score/100));save();oldEnd(reason)};
+ // Peach every ~25 seconds: use a timer and inject a peach spawn without replacing normal fruits.
+ let peachClock=25;const oldUpdate=window.update;window.update=function(dt){if(playing){peachClock-=dt;if(peachClock<=0){peachClock=25;let q=fruits.find(x=>x[0]==='Pêche');if(q){let r=q[1],fromBottom=Math.random()<.5;fr.push({type:q[0],x:rnd(r,W-r),y:fromBottom?H+55:-r-55,r,pts:q[2],a:q[3],b:q[4],vx:rnd(-2,2),vy:fromBottom?-rnd(13,17):rnd(7,11),ay:fromBottom?-3.5:8.5,rot:rnd(0,6.28),vr:rnd(-.12,.12),dead:false})}}}oldUpdate(dt)};
+ // Add +5 seconds when peach is cut (augment existing hit handling safely).
+ const oldHit2=window.hitAt;window.hitAt=function(x,y){for(const f of fr){if(!f.dead&&f.type==='Pêche'){let dx=x-f.x,dy=y-f.y;if(dx*dx+dy*dy<(f.r+15)**2){timeLeft=Math.min(360,timeLeft+5);toast('🍑 +5 secondes !');break}}}return oldHit2(x,y)};
+ // Dated future Slash display + level/date rules.
+ const baseShop=window.renderShop;window.renderShop=function(){baseShop();let box=el('shopList');if(!box)return;let now=new Date();let extra=future2.map(x=>{let d=new Date(x[3]+'T00:00:00');let unlocked=now>=d;let lvl=slashLevel(x[0]);let has=owned.includes(x[0]);let cost=x[2];let final=promoCost(cost);let label=unlocked?(has?'ÉQUIPER':'ACHETER'):'🔒 BIENTÔT';if(x[0]==='event'&&unlocked)label=has?'ÉQUIPER':'🆓 RÉCUPÉRER';return `<div class="shopItem ${unlocked?'':'locked'}"><div><b>${x[1]}</b><div class="tag">${unlocked?'🔓 Disponible':'🔒 Disponible le '+d.toLocaleDateString('fr-FR')} • Niveau ${lvl}</div></div><div>${unlocked?`<span class="price">${x[2]===0?'GRATUIT':'🪙 '+final}</span><br><button class="btn" style="padding:7px 10px;font-size:13px;width:auto" onclick="window.buyFuture('${x[0]}',${final},${lvl})">${label}</button>`:'<span class="tiny">Compte à rebours actif</span>'}</div></div>`}).join('');box.innerHTML+=extra};
+ window.buyFuture=(id,cost,lvl)=>{if(!availableFuture(id))return toast('🔒 Pas encore disponible !');if(fs.level<lvl)return toast('📈 Niveau '+lvl+' requis !');if(id==='event'){if(!owned.includes(id)){owned.push(id);equipped=id;fs.inventory.push('✨ Slash Événementielle');save();renderShop();toast('🎉 Slash événementielle gratuite !')}return}if(owned.includes(id)){equipped=id;save();renderShop();return}if(coins<cost)return toast('🪙 Pas assez de pièces !');coins-=cost;owned.push(id);equipped=id;if(activePromo){activePromo.used=true;activePromo=null;window.activePromo=null}save();renderShop();el('coinBalance').textContent=coins;toast('⚔️ Nouvelle Slash !')};
+ // Daily login 7-day calendar, shown in profile.
+ const oldProfile=window.openProfile;window.openProfile=function(){oldProfile();const card=el('profile').querySelector('.card');if(!card||card.querySelector('.dailyCalendar'))return;const div=document.createElement('div');div.className='featureCard dailyCalendar';const day=new Date().toISOString().slice(0,10);if(fs.dailyDay!==day){fs.dailyDay=day;fs.dailyClaimed=false;save()}div.innerHTML='<b>🎁 Connexion quotidienne — 7 jours</b><small id="dailyText"></small><button class="miniBtn" id="claimDaily">RÉCUPÉRER</button>';card.insertBefore(div,el('profileBack'));const txt=div.querySelector('#dailyText');txt.textContent='Jour 1 à 7 • récompenses progressives';div.querySelector('#claimDaily').onclick=()=>{if(fs.dailyClaimed)return toast('Déjà récupéré aujourd’hui.');fs.dailyClaimed=true;coins+=10;addXP(25);save();el('profileCoins').textContent=coins;toast('🎁 +10 🪙 +25 XP');div.querySelector('#claimDaily').textContent='DÉJÀ RÉCUPÉRÉ'};};
+ // Snowy-only admin badge: hide existing badge for everyone else.
+ const oldHome=window.home;window.home=function(){oldHome();document.querySelectorAll('.admin').forEach(x=>x.style.display=isAdmin()?'inline-block':'none');addFeatureNav();renderPromoCodes()};
+ // Mission completion hooks from existing score/combo/coins.
+ setInterval(()=>{if(!playing)return;if(runCoins>=20)fs.missions.coins20=20;if(combo>=10)fs.missions.combo3=1;save()},1000);
+ wire();
+ setTimeout(()=>{addFeatureNav();renderPromoCodes();if(name!=='Snowy')document.querySelectorAll('.admin').forEach(x=>x.style.display='none')},50);
+})();
+</script>
+<script>
+/* ===== FRUIT SLASH COMPLETE FEATURES V3 ===== */
+(()=>{
+ const $=id=>document.getElementById(id);
+ const jget=(k,d)=>{try{return JSON.parse(localStorage.getItem(k)||JSON.stringify(d))}catch{return d}};
+ let profiles=jget('fs_profiles',{});
+ const ensureProfile=n=>{if(!profiles[n]) profiles[n]={friends:[],inventory:[],trophies:[],xp:0,level:1,rankXP:0,world:'forêt',games:0,fruits:0,bestCombo:0,missions:{},missionClaimed:{},dailyStreak:0,lastDaily:'',challenges:{},frenzyBest:0,bossWins:0}; return profiles[n]};
+ let profile=ensureProfile(window.name||localStorage.getItem('fs_name')||'');
+ const persistProfile=()=>{if(!window.name)return;profiles[window.name]=profile;localStorage.setItem('fs_profiles',JSON.stringify(profiles));};
+ const switchProfile=n=>{profile=ensureProfile(n);window.name=n;localStorage.setItem('fs_name',n);persistProfile();refreshAll();};
+ const ranks=[['Bronze',0],['Argent',1000],['Or',2500],['Platine',5000],['Diamant',8000],['Élite',12000]];
+ const worlds=[['forêt','🌳 Forêt',1],['volcan','🌋 Volcan',5],['glace','❄️ Glace',10],['espace','🌌 Espace',15]];
+ const future=[['tornado','🌪️ Slash Tornade',4500,'2026-09-15',8],['shadow','🌑 Slash Ombre',5000,'2026-10-01',12],['galaxy','🌌 Slash Galaxy',6000,'2026-10-20',16],['meteor','☄️ Slash Météorite',7000,'2026-11-01',20],['event','✨ Slash Événement',0,'2026-11-08',1],['crystal','💎 Slash Cristal',10000,'2026-11-20',25]];
+ const chests=[
+  ['small','🟫 Petit coffre',50,[[50,'🪙 +5',5],[30,'🪙 +10',10],[10,'🪙 +15',15],[10,'🔥 Slash Feu','fire']]],
+  ['medium','🟦 Coffre moyen',150,[[50,'🪙 +5',5],[20,'🪙 +10',10],[15,'🪙 +15',15],[10,'🪙 +20',20],[5,'❄️ Slash Glace','ice']]],
+  ['large','🟪 Grand coffre',350,[[50,'🪙 +10',10],[20,'🪙 +20',20],[19,'🪙 +30',30],[10,'🔥 Slash Feu','fire'],[1,'✨ Slash Spéciale','special']]]
+ ];
+ const missionDefs=[['fruits','🍎 Couper 100 fruits',100,25],['combo','🔥 Faire un combo x3',3,20],['coins','🪙 Gagner 20 pièces',20,15]];
+ const trophyDefs=[['first2','⚡ Premier combo x2',()=>profile.bestCombo>=4],['score5k','🏆 5 000 points',()=>best>=5000],['score10k','💎 10 000 points',()=>best>=10000],['games100','🎮 100 parties',()=>profile.games>=100],['record','👑 Nouveau record personnel',()=>best>0]];
+ function xpNeed(){return 500+(profile.level-1)*700}
+ function addXP(n){profile.xp+=n;while(profile.xp>=xpNeed()){profile.xp-=xpNeed();profile.level++;toast('🎉 Niveau '+profile.level+' !')}persistProfile();}
+ function rankInfo(){let i=0;for(let k=0;k<ranks.length;k++)if(profile.rankXP>=ranks[k][1])i=k;let cur=profile.rankXP-ranks[i][1],next=ranks[i+1]?.[1]||ranks[i][1]+3000;return {name:ranks[i][0],cur,next, pct:Math.min(100,cur/(next-ranks[i][1])*100)}}
+ function isAdmin(){return name==='Snowy'}
+ function toast(t){const x=$('toastFS');if(!x)return;x.textContent=t;x.style.display='block';clearTimeout(window.__fst);window.__fst=setTimeout(()=>x.style.display='none',2200)}
+ function esc(x){return String(x).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+ function addPanel(){}
+ function makeScreen(id,title,body){if($(id))return;const d=document.createElement('div');d.id=id;d.className='screen hidden';d.innerHTML=`<div class="card"><h2>${title}</h2>${body}<button class="btn secondary" id="${id}Back">RETOUR</button></div>`;document.body.appendChild(d);$(id+'Back').onclick=()=>{if(typeof window.home==='function')window.home();else show('home')}}
+ function buildScreens(){
+  makeScreen('missions','🎯 MISSIONS','<div id="missionsV3List"></div>');
+  makeScreen('challenges','🧩 DÉFIS SPÉCIAUX','<div id="challengesV3List"></div>');
+  makeScreen('worlds','🌍 MONDES','<div id="worldsV3List"></div>');
+  makeScreen('rankedPlus','🏆 RANG CLASSÉ','<div id="rankV3Info"></div>');
+  makeScreen('frenzy','⚡ FRENZY','<div id="frenzyV3Info"></div><button class="btn" id="frenzyPlayV3">⚡ JOUER</button>');
+  makeScreen('chests','🎁 COFFRES','<div id="chestsV3List"></div>');
+  makeScreen('inventory','🎒 INVENTAIRE','<div id="inventoryV3List"></div>');
+  makeScreen('friends','👥 AMIS','<p class="sub">Ajoute un pseudo existant. Les amis sont sauvegardés par compte.</p><input id="friendV3Input" class="nameInput" placeholder="Pseudo de ton ami"><button class="btn" id="addFriendV3">➕ AJOUTER</button><div id="friendsV3List"></div>');
+  makeScreen('dailyV3','🎁 RÉCOMPENSES QUOTIDIENNES','<div id="dailyV3Info"></div>');
+  makeScreen('missions','🏅 TROPHÉES','<div id="trophiesV3List"></div>');
+  makeScreen('boss','👹 BOSS FINAL','<div id="bossV3Info"></div><button class="btn" id="bossStartV3">👹 COMMENCER LE BOSS</button><button class="btn" id="bossHitV3">⚔️ ATTAQUER</button>');
+  makeScreen('accounts','👤 COMPTES','<div id="accountsV3List"></div><input id="accountV3Input" class="nameInput" placeholder="Nouveau pseudo unique"><button class="btn" id="createAccountV3">➕ CRÉER LE COMPTE</button><p class="tiny">👑 Snowy est le seul compte ADMIN.</p>');
+ }
+ function renderHub(){const g=$('completeGrid');if(!g)return;g.innerHTML=[['🎯','Missions','missions'],['🧩','Défis','challenges'],['🌍','Mondes','worlds'],['🏆','Ranked + rang','rankedPlus'],['⚡','Frenzy','frenzy'],['🎁','Coffres','chests'],['🎒','Inventaire','inventory'],['👥','Amis','friends'],['🎁','Connexion 7 jours','dailyV3'],['🏅','Trophées','missions'],['👹','Boss final','boss'],['👤','Comptes','accounts']].map(a=>`<button class="featureCard featureBtn" onclick="window.fsOpen('${a[2]}')"><b>${a[0]} ${a[1]}</b><small>Ouvrir</small></button>`).join('')}
+ window.fsOpen=id=>{if(id==='missions')renderMissions();if(id==='challenges')renderChallenges();if(id==='worlds')renderWorlds();if(id==='rankedPlus')renderRank();if(id==='frenzy')renderFrenzy();if(id==='chests')renderChests();if(id==='inventory')renderInventory();if(id==='friends')renderFriends();if(id==='dailyV3')renderDaily();if(id==='missions')renderTrophies();if(id==='boss')renderBoss();if(id==='accounts')renderAccounts();show(id)};
+ function renderMissions(){const vals=profile.missions||{};$('missionsV3List').innerHTML=missionDefs.map(m=>{let v=+vals[m[0]]||0,done=v>=m[2],claimed=profile.missionClaimed[m[0]];return `<div class="featureCard ${done?'success':''}"><b>${m[1]}</b><small>${Math.min(v,m[2])}/${m[2]} • +${m[3]} XP</small><div class="progress"><i style="width:${Math.min(100,v/m[2]*100)}%"></i></div>${done&&!claimed?`<button class="miniBtn" onclick="window.claimMissionV3('${m[0]}',${m[3]})">RÉCUPÉRER</button>`:claimed?'✅ RÉCUPÉRÉE':'⏳ En cours'}</div>`}).join('')}
+ window.claimMissionV3=(id,xp)=>{if(profile.missionClaimed[id])return;profile.missionClaimed[id]=1;addXP(xp);renderMissions();toast('🎁 Mission récupérée !')};
+ function renderChallenges(){$('challengesV3List').innerHTML=[['fast','🚀 Fruits ultra-rapides','Score 1000 en partie rapide'],['dark','🌑 Mode sombre','Joue avec le thème sombre'],['certain','🍓 Fruits ciblés','Coupe 30 fruits'],['bombs','💣 Zone dangereuse','Survis avec beaucoup de bombes']].map(c=>`<div class="featureCard"><b>${c[1]}</b><small>${c[2]}</small><button class="miniBtn" onclick="window.startChallengeV3('${c[0]}')">JOUER</button></div>`).join('')}
+ window.startChallengeV3=id=>{profile.challenges[id]=true;persistProfile();toast('🧩 Défi '+id+' activé !');startGame('classic')};
+ function renderWorlds(){$('worldsV3List').innerHTML=worlds.map(w=>{let ok=profile.level>=w[2];return `<div class="featureCard ${ok?'':'locked'}"><div class="row2"><b>${w[1]}</b><button class="miniBtn" ${ok?'':'disabled'} onclick="window.selectWorldV3('${w[0]}')">${profile.world===w[0]?'✓ ACTIF':ok?'CHOISIR':'NIV. '+w[2]}</button></div><small>${ok?'Ambiance de terrain disponible.':'Débloque au niveau '+w[2]+'.'}</small></div>`}).join('')}
+ window.selectWorldV3=w=>{profile.world=w;persistProfile();renderWorlds();toast('🌍 Monde sélectionné !')};
+ function renderRank(){const r=rankInfo();$('rankV3Info').innerHTML=`<div class="featureCard"><b>🏆 ${r.name}</b><small>${profile.rankXP} points de rang</small><div class="progress"><i style="width:${r.pct}%"></i></div><small>Prochain rang : ${r.name==='Élite'?'MAX':r.next+' pts'}</small></div>`}
+ function renderFrenzy(){$('frenzyV3Info').innerHTML=`<div class="featureCard"><b>⚡ FRENZY</b><small>90 secondes • fruits très rapides • plus de bombes • récompenses renforcées.</small><span class="pill2">Record : ${profile.frenzyBest}</span></div>`}
+ function renderChests(){$('chestsV3List').innerHTML=chests.map(c=>`<div class="chest"><div class="row2"><b>${c[1]}</b><strong>🪙 ${c[2]}</strong></div><small>${c[3].map(o=>o[0]+'% '+o[1]).join(' • ')}</small><br><button class="miniBtn" onclick="window.openChestV3('${c[0]}')">OUVRIR</button></div>`).join('')+`<div class="tiny">🎟️ Un coupon actif s'applique aussi aux coffres.</div>`}
+ function chestRoll(c){let r=Math.random()*100,s=0;for(const o of c[3]){s+=o[0];if(r<s)return o}return c[3][c[3].length-1]}
+ window.openChestV3=id=>{let c=chests.find(x=>x[0]===id);if(!c)return;let discount=window.activePromo?.discount||0,cost=Math.max(1,Math.round(c[2]*(1-discount/100)/5)*5);if(coins<cost)return toast('🪙 Pas assez de pièces !');coins-=cost;let o=chestRoll(c);if(typeof o[2]==='number'){coins+=o[2]}else if(!owned.includes(o[2])){owned.push(o[2]);profile.inventory.push(o[1])}else{profile.inventory.push(o[1]+' — doublon')}if(window.activePromo){window.activePromo.used=true;window.activePromo=null}save();persistProfile();renderChests();renderInventory();toast('🎁 '+o[1])};
+ function renderInventory(){$('inventoryV3List').innerHTML=`<div class="featureCard"><b>⚔️ Slash : ${owned.length}</b><small>Équipée : ${equipped}</small></div>`+(profile.inventory.length?profile.inventory.map(x=>`<div class="reward">${esc(x)}</div>`).join(''):'<div class="tiny">Ton inventaire est vide.</div>')}
+ function renderFriends(){$('friendsV3List').innerHTML=profile.friends.length?profile.friends.map((f,i)=>`<div class="accountRow">👤 <b>${esc(f)}</b><button class="miniBtn danger" onclick="window.removeFriendV3(${i})">✕</button></div>`).join(''):'<div class="tiny">Aucun ami ajouté.</div>'}
+ window.removeFriendV3=i=>{profile.friends.splice(i,1);persistProfile();renderFriends()};
+ function renderAccounts(){$('accountsV3List').innerHTML=Object.keys(profiles).map(n=>`<div class="accountRow"><span>${n==='Snowy'?'👑':'👤'}</span><b>${esc(n)}</b><button class="miniBtn" onclick="window.loginV3('${esc(n)}')">${n===window.name?'ACTIF':'OUVRIR'}</button></div>`).join('')}
+ window.loginV3=n=>{if(!profiles[n])return;switchProfile(n);home();toast('👤 Connecté : '+n)};
+ function createAccountV3(){let n=($('accountV3Input').value||'').trim();if(n.length<2)return toast('Pseudo trop court.');if(n.toLowerCase()==='snowy')return toast('👑 Snowy est réservé.');if(Object.keys(profiles).some(x=>x.toLowerCase()===n.toLowerCase()))return toast('❌ Pseudo déjà utilisé.');profiles[n]=ensureProfile(n);localStorage.setItem('fs_profiles',JSON.stringify(profiles));switchProfile(n);home();toast('✅ Compte créé !')}
+ function renderDaily(){const today=new Date().toISOString().slice(0,10),rewards=[10,15,20,25,30,40,60];if(profile.lastDaily!==today)$('dailyV3Info').innerHTML=`<div class="featureCard"><b>📅 Jour ${Math.min(7,profile.dailyStreak+1)}/7</b><small>Récompense : 🪙 ${rewards[Math.min(6,profile.dailyStreak)]} + XP</small><button class="miniBtn" onclick="window.claimDailyV3()">RÉCUPÉRER</button></div>`;else $('dailyV3Info').innerHTML=`<div class="featureCard success"><b>✅ Récompense récupérée aujourd'hui</b><small>Série : ${profile.dailyStreak}/7</small></div>`;}
+ window.claimDailyV3=()=>{let today=new Date().toISOString().slice(0,10);if(profile.lastDaily===today)return;let r=[10,15,20,25,30,40,60][Math.min(6,profile.dailyStreak)];profile.dailyStreak=(profile.dailyStreak+1)%7;profile.lastDaily=today;coins+=r;addXP(25+profile.dailyStreak*5);save();persistProfile();renderDaily();toast('🎁 +'+r+' 🪙')};
+ function renderTrophies(){trophyDefs.forEach(t=>{if(t[2]&&!profile.trophies.includes(t[0])&&t[2]())profile.trophies.push(t[0])});persistProfile();$('trophiesV3List').innerHTML=trophyDefs.map(t=>`<div class="featureCard ${profile.trophies.includes(t[0])?'success':''}"><b>${profile.trophies.includes(t[0])?'🏆':'🔒'} ${t[1]}</b><small>${profile.trophies.includes(t[0])?'Débloqué':'À débloquer'}</small></div>`).join('')}
+ let bossHP=100,bossActive=false;
+ function renderBoss(){$('bossV3Info').innerHTML=`<div class="featureCard"><b>👹 BOSS FINAL</b><small>PV : ${bossHP}/100</small><div class="progress"><i style="width:${bossHP}%"></i></div><small>Plus ton combo est élevé, plus le boss devient difficile. Une phase spéciale arrive à 50 PV.</small></div>`}
+ $('bossStartV3')?.addEventListener('click',()=>{bossHP=100;bossActive=true;renderBoss();toast('👹 Le boss arrive !')});
+ $('bossHitV3')?.addEventListener('click',()=>{if(!bossActive)return toast('Lance d’abord le boss.');let c=Math.max(0,typeof combo==='number'?combo:0),d=5+Math.min(20,c*2);bossHP=Math.max(0,bossHP-d);if(bossHP===50)toast('⚡ PHASE SPÉCIALE !');if(bossHP===0){bossActive=false;profile.bossWins++;coins+=50;addXP(150);save();persistProfile();toast('🏆 Boss vaincu ! +50 🪙')}renderBoss()});
+ $('addFriendV3')?.addEventListener('click',()=>{let n=($('friendV3Input').value||'').trim();let real=Object.keys(profiles).find(x=>x.toLowerCase()===n.toLowerCase());if(!real)return toast('❌ Ce pseudo n’existe pas.');if(real===window.name)return toast('❌ Tu ne peux pas t’ajouter toi-même.');if(profile.friends.includes(real))return toast('Déjà dans tes amis.');profile.friends.push(real);persistProfile();$('friendV3Input').value='';renderFriends();toast('👥 Ami ajouté !')});
+ $('createAccountV3')?.addEventListener('click',createAccountV3);$('frenzyPlayV3')?.addEventListener('click',()=>{mode='frenzy';startGame('frenzy');toast('⚡ FRENZY !')});
+ function refreshAll(){if($('homeName'))$('homeName').textContent=window.name||'';if($('coinBalance'))$('coinBalance').textContent=coins;}
+ // Account-specific migration from old global friend data
+ if(window.name&&!profiles[window.name]){profile=ensureProfile(window.name);persistProfile()}
+ buildScreens();refreshAll();
+ // Make the original ADMIN badge account-safe.
+ document.querySelectorAll('.admin').forEach(x=>x.style.display=isAdmin()?'inline-block':'none');
+ // Patch gameplay stats without breaking the original game.
+ const origHit=window.hitAt;
+ window.hitAt=function(x,y){const before=fr.length;let r=origHit(x,y);if(r&&fr.length<before){profile.fruits++;profile.missions.fruits=Math.min(100,(+profile.missions.fruits||0)+1);if(combo>=4)profile.bestCombo=Math.max(profile.bestCombo,combo);if(combo>=3)profile.missions.combo=3;addXP(2);if(combo>=4)toast('⚡ COMBO x2 !');if(combo>=10)toast('🔥 COMBO x3 + RAINBOW !');persistProfile()}if(runCoins>=20)profile.missions.coins=20;return r};
+ const origEnd=window.endGame;
+ window.endGame=function(reason){profile.games++;profile.bestCombo=Math.max(profile.bestCombo,combo||0);if(mode==='rank')profile.rankXP+=Math.min(300,Math.floor(score/15));if(mode==='frenzy')profile.frenzyBest=Math.max(profile.frenzyBest,score);addXP(Math.max(5,Math.floor(score/100)));if(score>best)toast('🏆 Nouveau record !');persistProfile();origEnd(reason);renderTrophies()};
+ // Unlock event slash automatically on the event date; other dated Slash use level + purchase.
+ setInterval(()=>{if(window.name){persistProfile();document.querySelectorAll('.admin').forEach(x=>x.style.display=isAdmin()?'inline-block':'none')}},3000);
+})();
+</script>
+
+<script>
+// FIX RETOUR — navigation fiable sur toutes les pages des nouveautés
+(()=>{
+  const goHome=()=>{try{if(typeof window.home==='function')window.home();else if(typeof show==='function')show('home');}catch(e){if(typeof show==='function')show('home');}};
+  const goFeatures=()=>{try{if(typeof renderFeatures==='function')renderFeatures();if(typeof show==='function')show('features');}catch(e){if(typeof show==='function')show('home');}};
+  const bind=(id,fn)=>{const b=document.getElementById(id);if(b){b.onclick=(ev)=>{ev.preventDefault();ev.stopPropagation();fn();};b.disabled=false;}};
+  bind('newsBack',goHome);
+  bind('featuresBack',goHome);
+  ['missionsBack','challengesBack','worldsBack','rankBack','frenzyBack','chestsBack','inventoryBack','friendsBack','bossBack'].forEach(id=>bind(id,goFeatures));
+  bind('accountsBack',goHome);
+  document.querySelectorAll('.screen .btn.secondary').forEach(b=>{
+    if((b.textContent||'').trim().toUpperCase()==='RETOUR' && !b.onclick){b.onclick=(ev)=>{ev.preventDefault();ev.stopPropagation();goHome();};}
+  });
+})();
+</script>
+
+
+
+
+<style id="magazines-v4">
+/* ===== MENU MAGAZINES V4 ===== */
+.magShelfV4{margin-top:14px;padding:12px 0 4px}
+.magHeadV4{display:flex;align-items:center;justify-content:space-between;margin:0 2px 9px}
+.magHeadV4 b{font-size:13px;letter-spacing:.5px}
+.magHeadV4 small{font-size:9px;opacity:.65}
+.magScrollV4{display:flex;gap:9px;overflow-x:auto;overflow-y:hidden;padding:2px 2px 10px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.magScrollV4::-webkit-scrollbar{height:4px}
+.magCardV4{flex:0 0 108px;min-height:118px;border:1px solid #ffffff18;border-radius:16px;padding:10px 9px;display:flex;flex-direction:column;justify-content:space-between;text-align:left;color:#fff;background:linear-gradient(150deg,#18252b,#0c1115);box-shadow:0 7px 18px #0004;scroll-snap-align:start;cursor:pointer}
+.magCardV4:active{transform:scale(.96)}
+.magCardV4.hot{border-color:#ffd44d55;background:linear-gradient(150deg,#302719,#101417)}
+.magCardV4 .cover{font-size:25px;line-height:1}
+.magCardV4 strong{font-size:11px;display:block;margin-top:8px}
+.magCardV4 span{font-size:8px;opacity:.62;display:block;margin-top:3px}
+.magCardV4 .badge{align-self:flex-start;font-size:7px;font-weight:1000;padding:3px 6px;border-radius:999px;background:#ffd44d;color:#251800;margin-bottom:5px}
+.couponAdminV4{display:none;margin-top:10px;padding:11px;border:1px solid #ffd44d33;border-radius:15px;background:#17140d}
+.couponAdminV4 b{font-size:11px}.couponAdminV4 small{display:block;opacity:.7;font-size:9px;margin:4px 0 8px}
+.couponAdminV4 .cpRow{display:grid;grid-template-columns:1fr 75px 70px;gap:6px}
+.couponAdminV4 input{min-width:0;padding:9px;border-radius:10px;border:1px solid #ffffff20;background:#080b0d;color:#fff;font-weight:900}
+.couponAdminV4 button{border:0;border-radius:10px;font-weight:1000;padding:8px}
+.couponAdminV4 .cpCreate{background:#ffd44d;color:#241700}
+.couponAdminV4 .cpList{margin-top:8px;display:grid;gap:5px}
+.couponAdminV4 .cpItem{display:flex;justify-content:space-between;gap:5px;align-items:center;padding:6px 7px;background:#ffffff08;border-radius:9px;font-size:9px}
+.couponAdminV4 .cpItem button{background:#4a1a13;color:#ffc7bb;padding:5px 7px}
+</style>
+<script id="magazines-v4-js">
+(()=>{
+ const $=id=>document.getElementById(id);
+ const currentName=()=>{try{return (typeof name!=='undefined'&&name)||localStorage.getItem('fs_name')||''}catch(e){return localStorage.getItem('fs_name')||''}};
+ const admin=()=>currentName()==='Snowy';
+
+ function clickExisting(id){
+   const b=$(id);
+   if(b){b.click();return true}
+   return false;
+ }
+ function open(id){
+   if(window.fsOpen){window.fsOpen(id);return}
+   if(window.fsRender){try{window.fsRender(id)}catch(e){}}
+   if(typeof show==='function')show(id);
+ }
+ function codes(){
+   try{
+     if(typeof promoCodes!=='undefined') return promoCodes;
+   }catch(e){}
+   try{return JSON.parse(localStorage.getItem('fs_promo_codes')||'[]')}catch(e){return []}
+ }
+ function saveCodes(a){
+   try{
+     if(typeof promoCodes!=='undefined'){promoCodes=a; if(typeof save==='function')save(); else localStorage.setItem('fs_promo_codes',JSON.stringify(a)); return}
+   }catch(e){}
+   localStorage.setItem('fs_promo_codes',JSON.stringify(a));
+ }
+ function renderCoupons(){
+   const box=$('couponAdminV4'); if(!box)return;
+   box.style.display=admin()?'block':'none';
+   const list=$('couponListV4'); if(!list)return;
+   const a=codes();
+   list.innerHTML=a.length?a.map((x,i)=>`<div class="cpItem"><span>🎟️ <b>${x.code}</b> • -${x.discount}%</span><button data-i="${i}">SUPPR.</button></div>`).join(''):'<small>Aucun coupon créé.</small>';
+   list.querySelectorAll('button').forEach(b=>b.onclick=()=>{const a=codes();a.splice(+b.dataset.i,1);saveCodes(a);renderCoupons();});
+ }
+ function createCoupon(){
+   if(!admin()){alert('👑 Réservé à l’admin Snowy.');return}
+   const code=($('couponCodeV4').value||'').trim().toUpperCase().replace(/\s+/g,'');
+   const discount=Number($('couponDiscountV4').value);
+   if(code.length<3){alert('Code trop court.');return}
+   if(!Number.isFinite(discount)||discount<10||discount>90){alert('Choisis une réduction entre 10 et 90 %.');return}
+   const a=codes();
+   if(a.some(x=>x.code===code)){alert('Ce coupon existe déjà.');return}
+   a.push({code,discount,used:false});saveCodes(a);
+   $('couponCodeV4').value='';renderCoupons();
+   if($('couponStatusV4')){$('couponStatusV4').textContent=`✅ ${code} créé avec -${discount}%.`;$('couponStatusV4').style.color='#a8ffd8'}
+ }
+ function useCoupon(){
+   const input=$('couponUseV4'),st=$('couponStatusV4'); const code=(input.value||'').trim().toUpperCase();
+   const a=codes(),x=a.find(v=>v.code===code);
+   if(!x){st.textContent='❌ Code invalide ou inexistant.';st.style.color='#ff9d8f';return}
+   if(x.used){st.textContent='⚠️ Ce code a déjà été utilisé.';st.style.color='#ffcf8a';return}
+   try{window.activePromo=x}catch(e){}
+   saveCodes(a);
+   st.textContent=`✅ Coupon activé : -${x.discount}% sur les Slash et coffres.`;st.style.color='#a8ffd8';
+   renderCoupons();
+ }
+ const cards=[
+  ['🛒','Boutique','Slash + achats','shopBtn',true],
+  ['🏆','Classement','Rangs + score','boardBtn',true],
+  ['👤','Profil','Ton évolution','profileBtn',true],
+  ['🧰','Casier','Tes Slash','lockerBtn',false],
+  ['🎨','Thèmes','Personnalise','themeBtn',false],
+  ['🎁','Coffres','Récompenses','chests',true],
+  ['🎯','Missions','Défis quotidiens','missions',true],
+  ['🧩','Défis','Challenges','challenges',false],
+  ['🌍','Mondes','Nouveaux terrains','worlds',false],
+  ['⚡','Frenzy','Mode rapide','frenzy',true],
+  ['👥','Amis','Ajoute tes amis','friends',false],
+  ['🏅','Trophées','Tes records','missions',false],
+  ['👹','Boss final','Combat spécial','boss',false],
+  ['👤','Comptes','Changer de compte','accounts',false]
+ ];
+ function build(){
+   const home=$('home');if(!home)return;
+   document.querySelectorAll('.featureNav').forEach(x=>x.style.display='none');
+   let shelf=home.querySelector('.magShelfV4');
+   if(!shelf){
+     shelf=document.createElement('section');shelf.className='magShelfV4';
+     shelf.innerHTML='<div class="magHeadV4"><b>📰 MAGAZINES FRUIT SLASH</b><small>Fais glisser →</small></div><div class="magScrollV4"></div>';
+     const host=home.querySelector('.homeCard')||home.querySelector('.card');
+     if(host)host.appendChild(shelf);
+   }
+   const scroll=shelf.querySelector('.magScrollV4');scroll.innerHTML='';
+   cards.forEach((c,i)=>{
+     const b=document.createElement('button');b.type='button';b.className='magCardV4'+(c[4]?' hot':'');
+     b.innerHTML=(i<3?'<span class="badge">À LA UNE</span>':'')+`<div class="cover">${c[0]}</div><div><strong>${c[1]}</strong><span>${c[2]}</span></div>`;
+     b.onclick=()=>{
+       if(c[3]==='couponsV4'){makeCouponScreen();show('couponsV4');renderCoupons();return}
+       if(c[3].endsWith('Btn')){clickExisting(c[3]);return}
+       if(c[3]==='fsFeatures'){if(typeof renderFeatures==='function')renderFeatures();show('features');return}
+       open(c[3]);
+     };
+     scroll.appendChild(b);
+   });
+ }
+ const oldHomeV4=window.home;
+ if(typeof oldHomeV4==='function')window.home=function(){oldHomeV4();setTimeout(build,0)};
+ setTimeout(build,80);
+})();
+</script>
+
+
+<style id="shop-chests-patch-css">
+.shopChestSection{margin-top:14px;padding:13px;border-radius:18px;border:1px solid #ffd44d2e;background:linear-gradient(145deg,#21170d,#120d0b)}
+.shopChestSection h3{margin:0 0 4px;font-size:17px}.shopChestGrid{display:grid;grid-template-columns:1fr;gap:9px;margin-top:10px}.shopChestCard{padding:11px;border:1px solid #ffffff14;border-radius:14px;background:#ffffff08}.shopChestTop{display:flex;justify-content:space-between;gap:8px;align-items:center}.shopChestOdds{font-size:9px;color:#bcae9f;line-height:1.45;margin:5px 0}.shopChestBuy{border:0;border-radius:10px;padding:8px 11px;background:#ffd44d;color:#241700;font-weight:1000}.shopChestPrice{font-weight:1000;color:#ffd44d}
+</style>
+
+<script id="shop-chests-patch-js">/* superseded by stable chest renderer */</script>
+<style id="removeFruitSlashPlus">#completeHub,#features{display:none!important}</style><script id="removeFruitSlashPlusJS">(()=>{const kill=()=>{for(const id of ['completeHub','features']){const e=document.getElementById(id);if(e)e.remove()}document.querySelectorAll('button,a').forEach(b=>{if(/FRUIT\s*SLASH\+/i.test((b.textContent||'').trim()))b.remove()})}; if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',kill); else kill(); setTimeout(kill,100);})();</script><style id="features-final-fix-css">.featureRepair{padding:12px;border:1px solid #ffffff16;border-radius:16px;background:#ffffff08;margin:9px 0;text-align:left}.featureRepair b{display:block;margin-bottom:5px}.featureRepair small{display:block;color:#bda990;line-height:1.4}.featureRepair .progress{margin-top:8px}.featureRepair button{margin-top:8px}</style>
+<script id="features-final-fix-js">/* superseded by stable chest renderer */</script>
+
+<style id="final-game-fixes-css">
+#comboFX{position:fixed;inset:0;z-index:7;pointer-events:none;display:none;overflow:hidden}
+#comboFX.active{display:block}
+.comboRing{position:absolute;left:50%;top:28%;width:80px;height:80px;border:5px solid #fff;border-radius:50%;transform:translate(-50%,-50%) scale(.2);opacity:0;animation:comboRing .55s ease-out forwards;box-shadow:0 0 25px #ffd84d}
+.comboFlash{position:absolute;inset:0;background:#ffd84d;opacity:0;animation:comboFlash .25s ease-out forwards}
+.comboLabel{position:absolute;left:50%;top:23%;transform:translate(-50%,-50%) scale(.5);font-size:42px;font-weight:1000;color:#fff;text-shadow:0 4px #7d2800,0 0 25px #ffd84d;white-space:nowrap;animation:comboLabel .5s cubic-bezier(.2,1.6,.3,1) forwards}
+#bossBattleHUD{position:fixed;left:50%;top:78px;transform:translateX(-50%);z-index:8;width:min(88vw,430px);display:none;pointer-events:none;text-align:center;color:#fff;text-shadow:0 2px 4px #000}
+#bossBattleHUD.show{display:block}.bossMiniTitle{font-weight:1000;font-size:16px}.bossMiniBar{height:13px;border-radius:99px;background:#ffffff25;overflow:hidden;border:1px solid #fff3}.bossMiniBar i{display:block;height:100%;background:linear-gradient(90deg,#ff3d67,#ff9d2e);transition:width .18s}
+@keyframes comboRing{to{transform:translate(-50%,-50%) scale(3);opacity:0}}
+@keyframes comboFlash{0%{opacity:.28}100%{opacity:0}}
+@keyframes comboLabel{0%{transform:translate(-50%,-50%) scale(.5);opacity:0}25%{opacity:1}100%{transform:translate(-50%,-70%) scale(1.15);opacity:0}}
+.eventList{display:grid;gap:9px;text-align:left}.eventCard{padding:13px;border-radius:16px;background:#ffffff09;border:1px solid #ffffff16}.eventCard.next{border-color:#ffd44d66;background:#ffd44d10}.eventDate{font-size:11px;color:#ffd44d;font-weight:1000}.eventCard b{display:block;font-size:16px;margin:3px 0}.eventCard small{display:block;color:#cdbba8;line-height:1.4}
+</style>
+<div id="comboFX"></div>
+<div id="bossBattleHUD"><div class="bossMiniTitle">👹 BOSS FINAL • <span id="bossBattleHPText">100/100 PV</span></div><div class="bossMiniBar"><i id="bossBattleHP"></i></div></div>
+<script id="final-game-fixes-js">
+(()=>{
+ const $=id=>document.getElementById(id);
+ const current=()=>String(localStorage.getItem('fs_name')||window.__fsCurrentName||'').trim();
+ const admin=()=>current().toLowerCase()==='snowy';
+ const getFS=()=>{try{return JSON.parse(localStorage.getItem('fs_missions')||'{}')}catch{return {}}};
+ const setFS=o=>localStorage.setItem('fs_missions',JSON.stringify(o));
+ const renderMissionNow=()=>{try{if(typeof window.fsOpen==='function' && document.getElementById('missions')&&!document.getElementById('missions').classList.contains('hidden'))window.fsOpen('missions')}catch(e){}};
+ // ===== Missions: live score + fruits + combo + coins =====
+ window.refreshFSMissions=()=>{
+   let m=getFS();
+   const sc=(typeof score!=='undefined'?score:0), rc=(typeof runCoins!=='undefined'?runCoins:0), cb=(typeof combo!=='undefined'?combo:0);
+   m.score5k=Math.max(+m.score5k||0, Math.min(5000,sc));
+   m.combo3=Math.max(+m.combo3||0,cb>=3?1:0);
+   m.coins20=Math.max(+m.coins20||0,rc);
+   m.fruits100=Math.min(100,+m.fruits100||0);
+   if(cb>=3)m.combo=3;
+   setFS(m); renderMissionNow();
+ };
+ // Make the mission screen use one consistent data source.
+ window.fsOpen=(()=>{
+   const old=window.fsOpen;
+   return function(id){
+     if(id!=='missions')return old?old(id):undefined;
+     const box=$('missionsList');if(!box)return;
+     const m=getFS();
+     const defs=[
+       ['fruits100','🍎 Couper 100 fruits',100,25],
+       ['score5k','🏆 Atteindre 5 000 points',5000,30],
+       ['combo3','🔥 Faire un combo x3',1,20],
+       ['coins20','🪙 Gagner 20 pièces dans une partie',20,15]
+     ];
+     box.innerHTML=defs.map(x=>{const v=+m[x[0]]||0,done=v>=x[2],claimed=!!m[x[0]+'_claimed'];return `<div class="featureCard ${done?'success':''}"><b>${x[1]}</b><small>${Math.min(v,x[2])}/${x[2]} • +${x[3]} XP</small><div class="progress"><i style="width:${Math.min(100,v/x[2]*100)}%"></i></div>${done&&!claimed?`<button class="miniBtn" onclick="window.claimFSMission('${x[0]}',${x[3]})">RÉCUPÉRER</button>`:claimed?'✅ RÉCUPÉRÉE':'⏳ En cours'}</div>`}).join('');
+     window.claimFSMission=(id,xp)=>{const q=getFS();if(q[id+'_claimed'])return;q[id+'_claimed']=1;setFS(q);if(typeof window.addXP==='function')window.addXP(xp);else localStorage.setItem('fs_xp',String((+localStorage.getItem('fs_xp')||0)+xp));window.fsOpen('missions');if(typeof window.toast==='function')window.toast('🎁 Mission récompensée !')};
+     show('missions');
+     const b=$('missionsBack');if(b)b.onclick=()=>{if(typeof home==='function')home();else show('home')};
+   };
+ })();
+ // ===== Combo effects: intensity rises with combo =====
+ window.showComboFX=level=>{const fx=$('comboFX');if(!fx)return;fx.className='active combo2';if(level>=10)fx.className='active combo5';else if(level>=7)fx.className='active combo4';else if(level>=4)fx.className='active combo4';else if(level>=3)fx.className='active combo3';else fx.className='active combo2';const size=level>=10?180:level>=7?145:level>=4?120:level>=3?105:90;fx.innerHTML=`<div class="comboFlash"></div><div class="comboRing" style="width:${size}px;height:${size}px"></div><div class="comboLabel">🔥 COMBO ×${level}</div>`;clearTimeout(window.__comboFxTimer);window.__comboFxTimer=setTimeout(()=>{fx.className='';fx.innerHTML=''},700);};
+ const oldHit=window.hitAt;
+ if(oldHit)window.hitAt=function(x,y){const before=fr.length, oldCombo=(typeof combo!=='undefined'?combo:0);const r=oldHit(x,y);if(r&&fr.length<before){const cb=(typeof combo!=='undefined'?combo:0), gained=Math.max(0,cb-oldCombo);if(gained>0 && cb>=2)window.showComboFX(cb);localStorage.setItem('fs_fruits',String((+localStorage.getItem('fs_fruits')||0)+1));if(cb>=4)localStorage.setItem('fs_bestcombo',String(Math.max(+localStorage.getItem('fs_bestcombo')||0,cb)));const m=getFS();m.fruits100=Math.min(100,(+m.fruits100||0)+1);m.fruits=Math.min(100,(+m.fruits||0)+1);m.score5k=Math.max(+m.score5k||0,Math.min(5000,typeof score!=='undefined'?score:0));if(cb>=3)m.combo3=1;if(typeof runCoins!=='undefined')m.coins20=Math.max(+m.coins20||0,runCoins);setFS(m);window.refreshFSMissions();if(window.__bossActive){window.__bossDamageFromFruit(Math.max(1,Math.round(3+cb*.9)));} }return r};
+ // ===== Boss: real gameplay, fruits continue flying and each cut damages boss =====
+ window.__bossActive=false;window.__bossHP=100;
+ window.__bossDamageFromFruit=dmg=>{
+   if(!window.__bossActive)return;
+   window.__bossHP=Math.max(0,window.__bossHP-dmg);
+   localStorage.setItem('fs_bossHP',String(window.__bossHP));
+   const b=$('bossBattleHP'),t=$('bossBattleHPText');if(b)b.style.width=window.__bossHP+'%';if(t)t.textContent=window.__bossHP+'/100 PV';
+   if(window.__bossHP<=0){window.__bossActive=false;if($('bossBattleHUD'))$('bossBattleHUD').classList.remove('show');coins+=50;localStorage.setItem('fs_bossBest','100');if(typeof window.addXP==='function')window.addXP(150);if(typeof window.save==='function')window.save();if(typeof window.toast==='function')window.toast('🏆 BOSS VAINCU ! +50 🪙')}
+ };
+ const startBoss=()=>{window.__bossActive=true;window.__bossHP=100;localStorage.setItem('fs_bossHP','100');if($('bossBattleHUD'))$('bossBattleHUD').classList.add('show');if($('bossBattleHP'))$('bossBattleHP').style.width='100%';if($('bossBattleHPText'))$('bossBattleHPText').textContent='100/100 PV';startGame('boss');mode='boss';if(typeof window.toast==='function')window.toast('👹 Le Boss arrive ! Coupe les fruits pour l’attaquer !')};
+ // ===== Boss tab opens a playable fight =====
+ const oldFsOpen=window.fsOpen;
+ window.fsOpen=function(id){
+   if(id==='boss'){
+     const info=$('bossV3Info'); if(info)info.innerHTML='<div class="featureRepair"><b>👹 BOSS FINAL</b><small>Appuie sur JOUER puis coupe les fruits. Chaque fruit coupé inflige des dégâts au boss. Ton combo augmente les dégâts.</small></div>';
+     const start=$('bossStartV3');if(start){start.textContent='👹 JOUER AU BOSS';start.onclick=startBoss}
+     const hit=$('bossHitV3');if(hit)hit.style.display='none';
+     show('boss');
+     const back=$('bossBack');if(back)back.onclick=()=>{window.__bossActive=false;if($('bossBattleHUD'))$('bossBattleHUD').classList.remove('show');if(typeof home==='function')home()};
+     return;
+   }
+   return oldFsOpen?oldFsOpen(id):undefined;
+ };
+ // Some versions don't expose bossStartV3 in the real boss screen: bind the visible button too.
+ setTimeout(()=>{
+   const b=$('bossHit');if(b)b.style.display='none';
+ },50);
+ // ===== Challenges: each button really starts a matching challenge =====
+ window.startFSChallenge=id=>{
+   localStorage.setItem('fs_active_challenge',id);
+   if(id==='dark' && typeof applyTheme==='function')applyTheme('dark');
+   startGame('challenge');mode='challenge';
+   if(typeof window.toast==='function')window.toast('🧩 Défi activé !');
+ };
+ // ===== Challenges: functional and trackable =====
+ const oldFsOpenChallenges=window.fsOpen;
+ window.fsOpen=function(id){
+   if(id!=='challenges')return oldFsOpenChallenges?oldFsOpenChallenges(id):undefined;
+   const box=$('challengesList');if(!box)return;
+   const m=getFS();
+   const defs=[
+    ['fast','🚀 Score éclair','Atteins 1 000 points dans une partie.','score5k'],
+    ['dark','🌑 Maître du sombre','Joue avec le thème sombre.','dark'],
+    ['certain','🍓 Chasseur de fruits','Coupe 30 fruits.','fruits30'],
+    ['bombs','💣 Zone dangereuse','Termine une partie sans toucher de bombe.','bombs']
+   ];
+   box.innerHTML=defs.map(d=>{const done=!!(m['challenge_'+d[3]]);return `<div class="featureCard ${done?'success':''}"><b>${d[1]}</b><small>${d[2]}</small><button class="miniBtn" onclick="window.startFSChallenge('${d[0]}')">${done?'REJOUER':'JOUER'}</button></div>`}).join('');
+   show('challenges');const b=$('challengesBack');if(b)b.onclick=()=>{if(typeof home==='function')home();else show('home')};
+ };
+ // ===== Events mini-tab =====
+ function makeEvents(){
+   if($('eventsFS'))return;
+   const sc=document.createElement('div');sc.id='eventsFS';sc.className='screen hidden';sc.innerHTML=`<div class="card"><h2>📅 ÉVÉNEMENTS</h2><p class="sub">Tous les prochains événements de Fruit Slash.</p><div id="eventsFSList" class="eventList"></div><button class="btn secondary" id="eventsFSBack">RETOUR</button></div>`;document.body.appendChild(sc);
+   $('eventsFSBack').onclick=()=>{if(typeof home==='function')home();else show('home')};
+   const ev=[
+    ['15 septembre 2026','🌪️ Slash Tornade','Nouvelle Slash • 4 500 🪙 • niveau 40'],
+    ['1 octobre 2026','🌑 Slash Ombre','Nouvelle Slash • 5 000 🪙 • niveau 45'],
+    ['20 octobre 2026','🌌 Slash Galaxy','Nouvelle Slash • 6 000 🪙 • niveau 50'],
+    ['1 novembre 2026','☄️ Slash Météorite','Nouvelle Slash • 7 000 🪙 • niveau 55'],
+    ['8 novembre 2026','✨ ÉVÉNEMENT SPÉCIAL','Slash événementielle GRATUITE • niveau 1'],
+    ['20 novembre 2026','💎 Slash Cristal','Nouvelle Slash • 10 000 🪙 • niveau 60']
+   ];
+   const now=new Date();$('eventsFSList').innerHTML=ev.map((e,i)=>{const parts=e[0].split(' '),dt=new Date(`${parts[2]}-${({septembre:'09',octobre:'10',novembre:'11'})[parts[1]]||'01'}-${parts[0]}T00:00:00`);return `<div class="eventCard ${dt>=now?'next':''}"><span class="eventDate">${e[0]} ${dt>=now?'• À VENIR':'• PASSÉ'}</span><b>${e[1]}</b><small>${e[2]}</small></div>`}).join('');
+ }
+ window.openEventsFS=()=>{makeEvents();show('eventsFS')};
+ // Add Events card to the magazine shelf without creating duplicates.
+ const addEventCard=()=>{const shelf=document.querySelector('.magScrollV4');if(!shelf||shelf.querySelector('.eventsCardFS'))return;const b=document.createElement('button');b.type='button';b.className='magCardV4 hot eventsCardFS';b.innerHTML='<span class="badge">À VENIR</span><div class="cover">📅</div><div><strong>Événements</strong><span>Prochains rendez-vous</span></div>';b.onclick=window.openEventsFS;shelf.appendChild(b)};
+ setTimeout(addEventCard,300);setTimeout(addEventCard,1200);
+ // ===== Snowy-only coupon creator in the MAIN shop =====
+ window.ensureSnowyCoupons=()=>{
+   const shop=$('shop');if(!shop)return;
+   let box=$('snowyCouponAdmin');
+   if(!box){box=document.createElement('div');box.id='snowyCouponAdmin';box.className='panel';box.innerHTML='<b>👑 CRÉATEUR DE COUPONS — SNOWY</b><div class="tiny">Visible uniquement sur le compte Snowy.</div><div class="row"><input id="snowyCouponCode" class="nameInput" placeholder="CODE" maxlength="24"><input id="snowyCouponDiscount" class="nameInput" type="number" min="10" max="90" value="30" style="max-width:120px"></div><button class="btn" id="snowyCouponCreate">➕ CRÉER LE COUPON</button><div id="snowyCouponList"></div>';const back=$('shopBack');if(back)back.parentNode.insertBefore(box,back);else shop.querySelector('.card')?.appendChild(box)}
+   box.style.display=admin()?'block':'none';if(!admin())return;
+   const list=$('snowyCouponList');let a=[];try{a=JSON.parse(localStorage.getItem('fs_promo_codes')||'[]')}catch{}
+   list.innerHTML=a.length?a.map((x,i)=>`<div class="shopItem"><span>🎟️ <b>${x.code}</b> • -${x.discount}% ${x.used?'• UTILISÉ':''}</span><button class="miniBtn danger" data-i="${i}">SUPPR.</button></div>`).join(''):'<div class="tiny">Aucun coupon créé.</div>';
+   list.querySelectorAll('button').forEach(b=>b.onclick=()=>{a.splice(+b.dataset.i,1);localStorage.setItem('fs_promo_codes',JSON.stringify(a));window.ensureSnowyCoupons()});
+   const cb=$('snowyCouponCreate');if(cb)cb.onclick=()=>{const input=$('snowyCouponCode'),disc=$('snowyCouponDiscount');const code=(input.value||'').trim().toUpperCase().replace(/[^A-Z0-9_-]/g,'');const d=Math.round(+disc.value);if(!admin())return;if(code.length<3)return toast?.('❌ Code trop court.');if(!Number.isFinite(d)||d<10||d>90)return toast?.('❌ Réduction entre 10 et 90 %.');let a=[];try{a=JSON.parse(localStorage.getItem('fs_promo_codes')||'[]')}catch{}if(a.some(x=>x.code===code))return toast?.('❌ Ce code existe déjà.');a.push({code,discount:d,used:false});localStorage.setItem('fs_promo_codes',JSON.stringify(a));input.value='';if(typeof renderPromoCodes==='function')renderPromoCodes();if(typeof renderShop==='function')renderShop();window.ensureSnowyCoupons();toast?.('✅ Coupon créé !')};
+ };
+ const oldOpenShop=window.openShop;window.openShop=function(){oldOpenShop&&oldOpenShop();setTimeout(window.ensureSnowyCoupons,20)};
+ // Keep missions fresh while playing and immediately after every frame of gameplay.
+ setInterval(()=>{if(playing){window.refreshFSMissions()}else if(document.getElementById('shop')&&!document.getElementById('shop').classList.contains('hidden'))window.ensureSnowyCoupons()},700);
+ setTimeout(window.ensureSnowyCoupons,200);
+})();
+</script>
+<script id="final-ui-upgrade-js">
+(()=>{
+ const $=id=>document.getElementById(id);
+ const goHome=()=>{try{home()}catch(e){show('home')}};
+ // ===== Mini onglet PUB / réductions du jour =====
+ function makePromos(){
+   if($('promosFS'))return;
+   const sc=document.createElement('div');sc.id='promosFS';sc.className='screen hidden';
+   sc.innerHTML=`<div class="card"><h2>📣 OFFRES DU JOUR</h2><p class="sub">Les promos, bonus et infos à ne pas manquer.</p><div class="promoShelfFS"><h3>🔥 RÉDUCTIONS DU JOUR</h3><div class="promoDealsFS">
+   <div class="dealFS"><b>🎟️ -20% sur un coffre</b><small>Offre du jour • active pendant la partie</small></div>
+   <div class="dealFS"><b>🪙 +25 pièces bonus</b><small>Bonus événementiel Fruit Slash</small></div>
+   <div class="dealFS"><b>📅 Prochain événement</b><small>8 novembre 2026 • Slash événementielle gratuite</small></div>
+   </div></div><button class="btn" id="promoEventsBtn">📅 VOIR LES ÉVÉNEMENTS</button><button class="btn secondary" id="promosFSBack">RETOUR</button></div>`;
+   document.body.appendChild(sc);$('promosFSBack').onclick=goHome;$('promoEventsBtn').onclick=()=>window.openEventsFS&&window.openEventsFS();
+ }
+ window.openPromosFS=()=>{makePromos();show('promosFS')};
+ // ===== Page recherche = tous les rangs + jouer =====
+ function makeSearch(){
+   if($('searchFS'))return;
+   const sc=document.createElement('div');sc.id='searchFS';sc.className='screen hidden';
+   sc.innerHTML=`<div class="card"><h2>🔎 RECHERCHE</h2><p class="sub">Découvre tous les rangs et lance directement une partie Ranked.</p><div id="searchRanksFS" class="rankListFS"></div><button class="btn" id="searchPlayRank">🏆 JOUER EN RANKED</button><button class="btn secondary" id="searchFSBack">RETOUR</button></div>`;
+   document.body.appendChild(sc);$('searchFSBack').onclick=goHome;$('searchPlayRank').onclick=()=>startGame('rank');
+ }
+ function renderSearch(){
+   makeSearch();let xp=+(localStorage.getItem('fs_rankxp')||0);const ranks=[['Bronze',0],['Argent',1000],['Or',2500],['Platine',5000],['Diamant',8000],['Élite',12000]];
+   const cur=Math.max(0,xp);let idx=0;for(let i=0;i<ranks.length;i++)if(cur>=ranks[i][1])idx=i;
+   $('searchRanksFS').innerHTML=ranks.map((r,i)=>{const next=ranks[i+1]?.[1]??15000;const pct=i<ranks.length-1?Math.min(100,Math.max(0,(cur-r[1])/(next-r[1])*100)):100;return `<div class="rankCardFS ${i===idx?'current':''}"><b>${i<=idx?'🏆':'🔒'} ${r[0]}</b><small>${r[1]} points de rang${i===idx?' • RANG ACTUEL':''}</small><div class="rankBarFS"><i style="width:${i<idx?100:pct}%"></i></div></div>`}).join('');
+ }
+ window.openSearchFS=()=>{renderSearch();show('searchFS')};
+ // Add magazine cards permanently (rebuild-safe)
+ function addCards(){
+   const shelf=document.querySelector('.magScrollV4');if(!shelf)return;
+   if(!shelf.querySelector('.promoCardFS')){const b=document.createElement('button');b.className='magCardV4 hot promoCardFS';b.innerHTML='<span class="badge">À LA UNE</span><div class="cover">📣</div><div><strong>Offres</strong><span>Réductions du jour</span></div>';b.onclick=window.openPromosFS;shelf.appendChild(b)}
+   if(!shelf.querySelector('.searchCardFS')){const b=document.createElement('button');b.className='magCardV4 searchCardFS';b.innerHTML='<div class="cover">🔎</div><div><strong>Recherche</strong><span>Tous les rangs</span></div>';b.onclick=window.openSearchFS;shelf.appendChild(b)}
+   if(!shelf.querySelector('.eventsCardFS')){const b=document.createElement('button');b.className='magCardV4 hot eventsCardFS';b.innerHTML='<span class="badge">À VENIR</span><div class="cover">📅</div><div><strong>Événements</strong><span>Prochains rendez-vous</span></div>';b.onclick=()=>window.openEventsFS&&window.openEventsFS();shelf.appendChild(b)}
+ }
+ setTimeout(addCards,200);setTimeout(addCards,800);setInterval(addCards,1500);
+ // Coffres: rendu stable géré uniquement par #stable-chest-shop-renderer.
+ // Increase ranked cap so all ranks can actually be reached.
+ const oldStart=window.startGame;
+ if(oldStart)window.startGame=function(m){oldStart(m);};
+ // Keep events screen persistent even after home/rebuild.
+ makePromos();makeSearch();
+})();
+</script>
+<style id="final-chest-bomb-fix-css">
+#mainShopChestsFS{display:block!important}
+.shopChestSection{display:block!important}
+.bombNoticeFS{margin:10px 0;padding:10px 12px;border-radius:14px;background:#2a120d;border:1px solid #ff6b2138;color:#ffd9c7;font-size:12px;text-align:left}
+</style>
+<script id="final-chest-bomb-fix-js">/* superseded by stable chest renderer */</script>
+
+<style id="all-chests-now-css">
+#mainShopChestsFS{display:block!important}.allChestsNowGrid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:10px}.allChestCard{padding:12px;border-radius:16px;border:1px solid #ffffff18;background:#ffffff08}.allChestTop{display:flex;justify-content:space-between;align-items:center;gap:8px}.allChestOdds{font-size:10px;line-height:1.55;color:#c8bbaa;margin:7px 0}.allChestBuy{width:100%;border:0;border-radius:11px;padding:10px;background:#ffd44d;color:#241700;font-weight:1000}
+</style>
+<script id="all-chests-now-js">/* superseded by stable chest renderer */</script>
+<script id="stable-chest-shop-renderer">
+(()=>{
+ const $=id=>document.getElementById(id);
+ const defs=[
+  {id:'small',name:'🟫 Petit coffre',price:50,odds:[[50,'🪙 5 pièces'],[30,'🪙 10 pièces'],[10,'🪙 15 pièces'],[10,'🔥 Slash Feu']]},
+  {id:'medium',name:'🟦 Coffre moyen',price:150,odds:[[50,'🪙 5 pièces'],[20,'🪙 10 pièces'],[15,'🪙 15 pièces'],[10,'🪙 20 pièces'],[5,'❄️ Slash Glace']]},
+  {id:'large',name:'🟪 Grand coffre',price:350,odds:[[50,'🪙 10 pièces'],[20,'🪙 20 pièces'],[19,'🪙 30 pièces'],[10,'🔥 Slash Feu'],[1,'✨ Slash Spéciale']]}
+ ];
+ function price(d){const p=window.activePromo;return p?Math.max(1,Math.round(d.price*(1-p.discount/100)/5)*5):d.price}
+ function render(){
+  const shop=$('shop'),card=shop&&shop.querySelector('.card'); if(!card)return;
+  let sec=$('mainShopChestsFS');
+  if(!sec){sec=document.createElement('div');sec.id='mainShopChestsFS';sec.className='shopChestSection';card.insertBefore(sec,$('shopBack')||null)}
+  const signature=defs.map(d=>d.id+':'+price(d)).join('|');
+  if(sec.dataset.signature===signature)return;
+  sec.dataset.signature=signature;
+  sec.innerHTML='<h3>🎁 COFFRES</h3><div class="tiny">✅ Petit, moyen et grand coffre disponibles immédiatement.</div><div class="allChestsNowGrid">'+defs.map(d=>`<div class="allChestCard"><div class="allChestTop"><b>${d.name}</b><b>🪙 ${price(d)}</b></div><div class="allChestOdds">${d.odds.map(o=>o[0]+'% de chance : '+o[1]).join('<br>')}</div><button class="allChestBuy" type="button" data-stable-chest="${d.id}">🎁 ACHETER & OUVRIR</button></div>`).join('')+'</div>';
+  sec.querySelectorAll('[data-stable-chest]').forEach(btn=>btn.onclick=()=>{
+    const d=defs.find(x=>x.id===btn.dataset.stableChest); if(!d)return;
+    const c=price(d);
+    if(typeof window.openChest==='function')window.openChest(d.id,c);
+    else if(typeof window.openChestV3==='function')window.openChestV3(d.id);
+    sec.dataset.signature='';
+    setTimeout(render,30);
+  });
+ }
+ const oldOpenShop=window.openShop;
+ window.openShop=function(){if(oldOpenShop)oldOpenShop();setTimeout(render,20)};
+ const oldRenderShop=window.renderShop;
+ if(typeof oldRenderShop==='function')window.renderShop=function(){oldRenderShop();setTimeout(render,20)};
+ document.addEventListener('DOMContentLoaded',()=>setTimeout(render,100));
+ setTimeout(render,200);
+})();
+</script>
+
+<script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));}</script>
+</body></html>
+<script id="worlds-repair-final">
+(()=>{
+ const $=id=>document.getElementById(id);
+ const worldDefs=[['forêt','🌳 Forêt',1],['volcan','🌋 Volcan',3],['glace','❄️ Glace',5],['espace','🌌 Espace',8]];
+ function getLevel(){return +(localStorage.getItem('fs_level')||1)}
+ function getWorld(){return localStorage.getItem('fs_world')||'forêt'}
+ function renderWorldsFixed(){
+   const box=$('worldsList')||$('worldsV3List'); if(!box)return;
+   const level=getLevel(), active=getWorld();
+   box.innerHTML=worldDefs.map(w=>{
+     const ok=level>=w[2];
+     return `<div class="featureCard ${ok?'':'locked'}"><div class="row2"><b>${w[1]}</b><button class="miniBtn" ${ok?'':'disabled'} data-world="${w[0]}">${active===w[0]?'✓ ACTIF':ok?'CHOISIR':'NIV. '+w[2]}</button></div><small>${ok?'Ambiance de terrain disponible.':'Débloque au niveau '+w[2]+'.'}</small></div>`;
+   }).join('');
+   box.querySelectorAll('[data-world]').forEach(btn=>btn.onclick=()=>{
+     localStorage.setItem('fs_world',btn.dataset.world);
+     try{if(typeof fs!=='undefined')fs.world=btn.dataset.world}catch(e){}
+     renderWorldsFixed();
+     if(typeof toast==='function')toast('🌍 Monde sélectionné !');
+   });
+ }
+ window.renderWorlds=renderWorldsFixed;
+ const oldOpen=window.fsOpen;
+ window.fsOpen=function(id){
+   if(id==='worlds'){
+     renderWorldsFixed();
+     if(typeof show==='function')show('worlds');
+     return;
+   }
+   return oldOpen?oldOpen(id):undefined;
+ };
+ document.addEventListener('DOMContentLoaded',()=>setTimeout(renderWorldsFixed,100));
+})();
+</script>
